@@ -12,9 +12,10 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  * @Version: v1.0
  */
 public class MyShiroRealm extends AuthorizingRealm {
+    private  static final transient Logger log = LoggerFactory.getLogger(MyShiroRealm.class);
     @Autowired
     private SysUserMapper sysUserMapper;
     @Autowired
@@ -55,23 +57,30 @@ public class MyShiroRealm extends AuthorizingRealm {
     /**
      * 认证
      *
-     * @param authenticationToken token
+     * @param token token
      * @return
      * @throws AuthenticationException
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String username = (String) authenticationToken.getPrincipal();
-        SysUser user = sysUserMapper.getUserByUsername(username);
-        if (user == null) {
-            throw new UnknownAccountException("用户名或密码错误");
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        log.info("^^^^^^^^^^^^^^^^^^^^ ITDragon 认证用户身份信息");
+        // 获取用户登录账号
+        String username = (String) token.getPrincipal();
+        // 通过账号查加密后的密码和盐，这里一般从缓存读取
+        SysUser userInfo = sysUserMapper.getUserByUsername(username);
+        if(null == userInfo){
+            return null;
         }
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
-                user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName()
-        );
-        Session session = SecurityUtils.getSubject().getSession();
-        session.setAttribute("user", user);
-        return simpleAuthenticationInfo;
+        // 1). principal: 认证的实体信息. 可以是 username, 也可以是数据表对应的用户的实体类对象.
+        Object principal = username;
+        // 2). credentials: 加密后的密码.
+        Object credentials = userInfo.getPassword();
+        // 3). realmName: 当前 realm 对象的唯一名字. 调用父类的 getName() 方法
+        String realmName = getName();
+        // 4). credentialsSalt: 盐值. 注意类型是ByteSource
+        ByteSource credentialsSalt = ByteSource.Util.bytes(userInfo.getSalt());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
+        return info;
     }
 
     /**

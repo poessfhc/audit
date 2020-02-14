@@ -1,18 +1,17 @@
 package com.edu.audit.config;
 
-import com.edu.audit.filter.CORSAuthenticationFilter;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
-import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,128 +24,107 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-
-    private static Logger log = LoggerFactory.getLogger(ShiroConfig.class);
-
+    private static final transient Logger log = LoggerFactory.getLogger(ShiroConfig.class);
 
     /**
-     * 对shiro的拦截器进行注入
+     * 配置拦截器
      * <p>
-     * securityManager:
-     * 所有Subject 实例都必须绑定到一个SecurityManager上,SecurityManager 是 Shiro的核心，初始化时协调各个模块运行。然而，一旦 SecurityManager协调完毕，
-     * SecurityManager 会被单独留下，且我们只需要去操作Subject即可，无需操作SecurityManager 。 但是我们得知道，当我们正与一个 Subject 进行交互时，实质上是
-     * SecurityManager在处理 Subject 安全操作
-     *
-     * @param securityManager
-     * @return
+     * 定义拦截URL权限，优先级从上到下
+     * 1). anon  : 匿名访问，无需登录
+     * 2). authc : 登录后才能访问
+     * 3). logout: 登出
+     * 4). roles : 角色过滤器
+     * <p>
+     * URL 匹配风格
+     * 1). ?：匹配一个字符，如 /admin? 将匹配 /admin1，但不匹配 /admin 或 /admin/；
+     * 2). *：匹配零个或多个字符串，如 /admin* 将匹配 /admin 或/admin123，但不匹配 /admin/1；
+     * 2). **：匹配路径中的零个或多个路径，如 /admin/** 将匹配 /admin/a 或 /admin/a/b
+     * <p>
+     * 配置身份验证成功，失败的跳转路径
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilter(org.apache.shiro.mgt.SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
-
-        //设置遇到未登录、未授权等情况时候，请求这些地址，返回相应的错误
-        shiroFilter.setLoginUrl("/user/shiroError?errorId=" + 400);
-        shiroFilter.setUnauthorizedUrl("/user/shiroError?errorId=" + 401);
-
-        //拦截器，配置访问权限 必须是LinkedHashMap，因为它必须保证有序。滤链定义，从上向下顺序执行，一般将 /**放在最为下边
-        Map<String, String> filterMap = new LinkedHashMap<String, String>();
-
-        // 配置不会被拦截的链接 顺序判断
-        filterMap.put("/user/login", "anon");
-        filterMap.put("/user/shiroError", "anon");
-        filterMap.put("/user/reg", "anon");
-        //放行swagger
-        filterMap.put("/swagger-ui.html", "anon");
-        filterMap.put("/swagger-resources/**", "anon");
-        filterMap.put("/v2/**", "anon");
-        filterMap.put("/webjars/**", "anon");
-
-        //剩余的请求shiro都拦截
-        filterMap.put("/**/*", "authc");
-
-        shiroFilter.setFilterChainDefinitionMap(filterMap);
-
-
-        //自定义拦截器
-        Map<String, Filter> customFilterMap = new LinkedHashMap<>();
-        customFilterMap.put("corsAuthenticationFilter", new CORSAuthenticationFilter());
-        shiroFilter.setFilters(customFilterMap);
-
-        return shiroFilter;
+    public ShiroFilterFactoryBean shirFilter(DefaultWebSecurityManager securityManager) {
+        log.info("^^^^^^^^^^^^^^^^^^^^ ITDragon 配置Shiro拦截工厂");
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
+        filterChainDefinitionMap.put("/user/**", "anon");
+        // 静态资源匿名访问
+        filterChainDefinitionMap.put("/static/**", "anon");
+        // 登录匿名访问
+        filterChainDefinitionMap.put("/employees/login", "anon");
+        // 用户退出，只需配置logout即可实现该功能
+        filterChainDefinitionMap.put("/logout", "logout");
+        // 其他路径均需要身份认证，一般位于最下面，优先级最低
+        filterChainDefinitionMap.put("/**", "authc");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        // 登录的路径
+        shiroFilterFactoryBean.setLoginUrl("/login");
+        // 登录成功后跳转的路径
+        shiroFilterFactoryBean.setSuccessUrl("/dashboard");
+        // 验证失败后跳转的路径
+        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        return shiroFilterFactoryBean;
     }
 
-
     /**
-     * securityManager 核心配置
-     * 安全控制层
-     *
-     * @return
+     * 配置Shiro生命周期处理器
      */
     @Bean
-    public org.apache.shiro.mgt.SecurityManager securityManager() {
-        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
-        //设置自定义的realm
-        defaultWebSecurityManager.setRealm(myRealm());
-        //自定义的shiro session 缓存管理器
-        defaultWebSecurityManager.setSessionManager(sessionManager());
-        //将缓存对象注入到SecurityManager中
-        defaultWebSecurityManager.setCacheManager(ehCacheManager());
-
-        return defaultWebSecurityManager;
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
+        return new LifecycleBeanPostProcessor();
     }
 
-
     /**
-     * 自定义的realm
-     *
-     * @return
+     * 自动创建代理类，若不添加，Shiro的注解可能不会生效。
      */
     @Bean
-    public MyShiroRealm myRealm() {
-        return new MyShiroRealm();
+    @DependsOn({"lifecycleBeanPostProcessor"})
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
     }
 
-
     /**
-     * 开启shiro 的AOP注解支持
-     *
-     * @param securityManager
-     * @return
+     * 开启Shiro的注解
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(org.apache.shiro.mgt.SecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;
     }
 
-
     /**
-     * shiro缓存管理器
-     * 1 添加相关的maven支持
-     * 2 注册这个bean，将缓存的配置文件导入
-     * 3 在securityManager 中注册缓存管理器，之后就不会每次都会去查询数据库了，相关的权限和角色会保存在缓存中，但需要注意一点，更新了权限等操作之后，需要及时的清理缓存
+     * 配置加密匹配，使用MD5的方式，进行1024次加密
      */
     @Bean
-    public EhCacheManager ehCacheManager() {
-        EhCacheManager cacheManager = new EhCacheManager();
-        cacheManager.setCacheManagerConfigFile("classpath:config/ehcache.xml");
-        return cacheManager;
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        hashedCredentialsMatcher.setHashIterations(1024);
+        return hashedCredentialsMatcher;
     }
-
 
     /**
-     * 自定义的 shiro session 缓存管理器，用于跨域等情况下使用 token 进行验证，不依赖于sessionId
-     *
-     * @return
+     * 自定义Realm，可以多个
      */
     @Bean
-    public SessionManager sessionManager() {
-        //将我们继承后重写的shiro session 注册
-        ShiroSession shiroSession = new ShiroSession();
-        //如果后续考虑多tomcat部署应用，可以使用shiro-redis开源插件来做session 的控制，或者nginx 的负载均衡
-        shiroSession.setSessionDAO(new EnterpriseCacheSessionDAO());
-        return shiroSession;
+    public MyShiroRealm myShiroRealm() {
+        MyShiroRealm myShiroRealm = new MyShiroRealm();
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return myShiroRealm;
     }
+
+    /**
+     * SecurityManager 安全管理器；Shiro的核心
+     */
+    @Bean
+    public DefaultWebSecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(myShiroRealm());
+        return securityManager;
+    }
+
 }
