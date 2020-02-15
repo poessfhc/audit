@@ -117,7 +117,10 @@
             <version>1.2.11</version>
         </dependency>
         <!--end json -->
-        <!-- dom4j -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
