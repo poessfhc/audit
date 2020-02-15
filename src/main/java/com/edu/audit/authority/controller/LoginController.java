@@ -21,7 +21,7 @@ import java.util.UUID;
 
 /**
  * @ClassName: LoginController
- * @Description: TODO 还需进行修改
+ * @Description: 用户登录
  * @Author: Vince
  * @Date: 2020/1/17 15:37
  * @Version: v1.0
@@ -35,7 +35,7 @@ public class LoginController {
 
     @ApiOperation(value = "简单登录测试接口")
     @PostMapping("/login")
-    public JsonResult login(@RequestParam String username, @RequestParam String password) {
+    public Serializable login(@RequestParam String username, @RequestParam String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         SecurityUtils.getSubject().login(token);
         //设置session时间
@@ -43,7 +43,7 @@ public class LoginController {
         //token信息
         Subject subject = SecurityUtils.getSubject();
         Serializable tokenId = subject.getSession().getId();
-        return new JsonResult(1, "登录认证成功", tokenId);
+        return tokenId;
     }
 
     @GetMapping("/test")

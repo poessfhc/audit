@@ -3,6 +3,8 @@ package com.edu.audit.authority.dao;
 import com.edu.audit.authority.domain.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysUserMapper {
     int deleteByPrimaryKey(String userId);
@@ -20,4 +22,8 @@ public interface SysUserMapper {
     SysUser getUserByUsername(String username);
 
     SysUser login(String username, String password);
+
+    List<String> getRolesByName(String username);
+
+    List<String> getPermissionsByRoleName(List<String> roleNames);
 }

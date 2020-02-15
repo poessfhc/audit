@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.edu.audit.authority.dao.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.edu.audit.authority.domain.SysUser">
-    <id column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
-    <result column="sex" jdbcType="CHAR" property="sex" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-    <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.edu.audit.authority.domain.SysUser">
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="phonenumber" jdbcType="VARCHAR" property="phonenumber"/>
+        <result column="sex" jdbcType="CHAR" property="sex"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="delete_flag" jdbcType="CHAR" property="deleteFlag"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <!--    <resultMap id="RoleResultMap" type="com.poe.ssfhc.blog.authority.domain.Role">-->
+    <!--        <id column="role_id" jdbcType="VARCHAR" property="roleId"/>-->
+    <!--        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>-->
+    <!--        <result column="remark" jdbcType="VARCHAR" property="remark"/>-->
+    <!--        <result column="delete_flag" jdbcType="CHAR" property="deleteFlag"/>-->
+    <!--        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>-->
+    <!--        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>-->
+    <!--        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>-->
+    <!--        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>-->
+    <!--    </resultMap>-->
+    <!--    <resultMap id="MenuResultMap" type="com.poe.ssfhc.blog.authority.domain.Menu">-->
+    <!--        <id column="menu_id" jdbcType="VARCHAR" property="menuId"/>-->
+    <!--        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>-->
+    <!--        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>-->
+    <!--        <result column="url" jdbcType="VARCHAR" property="url"/>-->
+    <!--        <result column="menu_type" jdbcType="CHAR" property="menuType"/>-->
+    <!--        <result column="perms" jdbcType="VARCHAR" property="perms"/>-->
+    <!--        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>-->
+    <!--        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>-->
+    <!--        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>-->
+    <!--        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>-->
+    <!--    </resultMap>-->
+    <sql id="Base_Column_List">
     user_id, username, email, phonenumber, sex, password, salt, delete_flag, create_by,
     create_time, update_by, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from sys_user
-    where user_id = #{userId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <sql id="Role_Column_List">
+    r.role_name
+  </sql>
+    <sql id="Menu_Column_List">
+    m.perms
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sys_user
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.edu.audit.authority.domain.SysUser">
+    <insert id="insert" parameterType="com.edu.audit.authority.domain.SysUser">
     insert into sys_user (user_id, username, email,
       phonenumber, sex, password,
       salt, delete_flag, create_by,
@@ -37,129 +65,129 @@
       )
     values (#{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
       #{phonenumber,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{password,jdbcType=VARCHAR},
-      #{salt,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR}, #{createBy,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      #{salt,jdbcType=VARCHAR}, 'N', #{createBy,jdbcType=VARCHAR},
+      NOW(), #{updateBy,jdbcType=VARCHAR}, NOW()
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.edu.audit.authority.domain.SysUser">
-    insert into sys_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="phonenumber != null">
-        phonenumber,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="salt != null">
-        salt,
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag,
-      </if>
-      <if test="createBy != null">
-        create_by,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateBy != null">
-        update_by,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phonenumber != null">
-        #{phonenumber,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=CHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteFlag != null">
-        #{deleteFlag,jdbcType=CHAR},
-      </if>
-      <if test="createBy != null">
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.authority.domain.SysUser">
-    update sys_user
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="phonenumber != null">
-        phonenumber = #{phonenumber,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=CHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        salt = #{salt,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag = #{deleteFlag,jdbcType=CHAR},
-      </if>
-      <if test="createBy != null">
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateBy != null">
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.edu.audit.authority.domain.SysUser">
+    <insert id="insertSelective" parameterType="com.edu.audit.authority.domain.SysUser">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="phonenumber != null">
+                phonenumber,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phonenumber != null">
+                #{phonenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.authority.domain.SysUser">
+        update sys_user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phonenumber != null">
+                phonenumber = #{phonenumber,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=CHAR},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.edu.audit.authority.domain.SysUser">
     update sys_user
     set username = #{username,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -174,16 +202,35 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <select id="getUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from sys_user
-    where username = #{username,jdbcType=VARCHAR}
-  </select>
-  <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from sys_user
-    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
-  </select>
+    <select id="getUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+    <select id="getRolesByName" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+        <include refid="Role_Column_List"/>
+        from sys_user_role ur
+        left join sys_user u on u.user_id = ur.user_id
+        left join sys_role r on r.role_id = ur.role_id
+        where u.username = #{username,jdbcType=VARCHAR}
+    </select>
+    <select id="getPermissionsByRoleName" parameterType="java.lang.String" resultType="java.lang.String">
+        select
+        <include refid="Menu_Column_List"/>
+        from sys_role_menu rm
+        left join sys_role r on r.role_id = rm.role_id
+        left join sys_menu m on m.menu_id = rm.menu_id
+        where r.role_name in
+        <foreach collection="list" item="roleName" index="index" open="(" separator="," close=")">
+            #{roleName}
+        </foreach>
+    </select>
 </mapper>

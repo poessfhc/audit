@@ -55,6 +55,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/employees/login", "anon");
         // 用户退出，只需配置logout即可实现该功能
         filterChainDefinitionMap.put("/logout", "logout");
+        //放行swagger
+        filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/swagger-resources/**", "anon");
+        filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+
         // 其他路径均需要身份认证，一般位于最下面，优先级最低
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

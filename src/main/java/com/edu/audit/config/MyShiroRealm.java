@@ -13,12 +13,16 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +33,7 @@ import java.util.stream.Collectors;
  * @Version: v1.0
  */
 public class MyShiroRealm extends AuthorizingRealm {
-    private  static final transient Logger log = LoggerFactory.getLogger(MyShiroRealm.class);
+    private static final transient Logger log = LoggerFactory.getLogger(MyShiroRealm.class);
     @Autowired
     private SysUserMapper sysUserMapper;
     @Autowired
@@ -40,17 +44,21 @@ public class MyShiroRealm extends AuthorizingRealm {
     /**
      * 授权
      *
-     * @param principalCollection 身份集合
+     * @param principalCollection 身份集合 todo
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        String username = (String) getAvailablePrincipal(principalCollection);
+        List<String> roleList = sysUserMapper.getRolesByName(username);
+        Set<String> roles = new HashSet<>(roleList);
+        List<String> permissionList = sysUserMapper.getPermissionsByRoleName(roleList);
+        Set<String> permissions = new HashSet<>(permissionList);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        SysUser user = (SysUser) principalCollection.getPrimaryPrincipal();
-        List<SysRole> roles = sysRoleMapper.selectByPrimaryKey(user.getUserId());
-        List<SysMenu> menus = sysMenuMapper.selectByPrimaryKey(user.getUserId());
-        simpleAuthorizationInfo.addRoles(roles.stream().map(SysRole::getRoleName).collect(Collectors.toSet()));
-        simpleAuthorizationInfo.addStringPermissions(menus.stream().map(SysMenu::getPerms).collect(Collectors.toSet()));
+        simpleAuthorizationInfo.setStringPermissions(permissions);
+        simpleAuthorizationInfo.setRoles(roles);
+        log.debug("== >角色:" + String.join(",", roles));
+        log.debug("== >权限:" + String.join(",", permissions));
         return simpleAuthorizationInfo;
     }
 
@@ -68,7 +76,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = (String) token.getPrincipal();
         // 通过账号查加密后的密码和盐，这里一般从缓存读取
         SysUser userInfo = sysUserMapper.getUserByUsername(username);
-        if(null == userInfo){
+        if (null == userInfo) {
             return null;
         }
         // 1). principal: 认证的实体信息. 可以是 username, 也可以是数据表对应的用户的实体类对象.

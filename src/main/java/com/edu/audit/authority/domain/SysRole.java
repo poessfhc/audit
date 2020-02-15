@@ -1,85 +1,41 @@
 package com.edu.audit.authority.domain;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class SysRole {
+    /**
+     * 角色ID
+     * */
     private String roleId;
-
+    /**
+     * 角色名称
+     * */
     private String roleName;
-
+    /**
+     * 角色权限字符串
+     * */
     private String remark;
-
+    /**
+     * 角色状态（0正常 1停用）
+     * */
     private String deleteFlag;
-
+    /**
+     * 创建者
+     * */
     private String createBy;
-
+    /**
+     * 创建时间
+     * */
     private Date createTime;
-
+    /**
+     * 更新者
+     * */
     private String updateBy;
-
+    /**
+     * 更新时间
+     * */
     private Date updateTime;
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName == null ? null : roleName.trim();
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
-    public String getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    public void setDeleteFlag(String deleteFlag) {
-        this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy == null ? null : updateBy.trim();
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }
