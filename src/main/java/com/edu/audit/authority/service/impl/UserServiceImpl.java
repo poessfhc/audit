@@ -3,7 +3,10 @@ package com.edu.audit.authority.service.impl;
 import com.edu.audit.authority.dao.SysUserMapper;
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.UserService;
+import com.edu.audit.redis.service.RedisService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     SysUserMapper sysUserMapper;
+    @Autowired
+    RedisService redisService;
 
     @Override
     public SysUser selectByPrimaryKey(String id) {
@@ -33,10 +38,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer register(SysUser sysUser) {
+        String code = redisService.get(sysUser.getEmail());
+        if (!sysUser.getCode().equals(code)) {
+            return null;
+        }
+        String salt = UUID.randomUUID().toString();
+        Object md5Password = new SimpleHash("MD5", sysUser.getPassword(), ByteSource.Util.bytes(salt), 1024);
         String name = SecurityUtils.getSubject().getPrincipal().toString();
         sysUser.setUserId(UUID.randomUUID().toString());
         sysUser.setCreateBy(name);
         sysUser.setUpdateBy(name);
+        sysUser.setSalt(salt);
+        sysUser.setPassword(md5Password.toString());
         return sysUserMapper.insert(sysUser);
     }
 

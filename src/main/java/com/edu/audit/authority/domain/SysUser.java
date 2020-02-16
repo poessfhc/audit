@@ -54,4 +54,8 @@ public class SysUser {
      * 更新时间
      * */
     private Date updateTime;
+    /**
+     * 验证码
+     * */
+    private String code;
 }
