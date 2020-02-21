@@ -34,7 +34,7 @@ public class EmailServiceImpl implements EmailService {
         message.setFrom(sendMailAddress);
         message.setTo(emailAddress);
         message.setSubject("验证码");
-        message.setText("【Vince审计】验证码是"+resultCode+"（有效时间10分钟）");
+        message.setText("【Vince审计】验证码是"+resultCode+"（有效时间6分钟）");
         javaMailSender.send(message);
         //清除未失效的key对应的value值
         redisService.remove(emailAddress);

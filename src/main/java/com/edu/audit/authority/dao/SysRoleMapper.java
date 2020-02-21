@@ -1,6 +1,8 @@
 package com.edu.audit.authority.dao;
 
 import com.edu.audit.authority.domain.SysRole;
+import com.edu.audit.authority.domain.SysUser;
+import com.edu.audit.authority.domain.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +20,10 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    List<SysUser> queryRole();
+
+    int addRole(SysUserRole sysUserRole);
+
+    int deleteRole(SysUserRole sysUserRole);
 }

@@ -1,8 +1,6 @@
 package com.edu.audit.authority.controller;
 
-import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.UserService;
-import com.edu.audit.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
