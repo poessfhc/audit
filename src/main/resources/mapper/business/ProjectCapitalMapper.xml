@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.audit.business.dao.ProjectCapitalMapper">
+  <resultMap id="BaseResultMap" type="com.edu.audit.business.domain.ProjectCapital">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="budget" jdbcType="INTEGER" property="budget" />
+    <result column="Actual" jdbcType="INTEGER" property="actual" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, budget, Actual
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_capital
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from project_capital
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectCapital">
+    insert into project_capital (id, budget, Actual
+      )
+    values (#{id,jdbcType=VARCHAR}, #{budget,jdbcType=INTEGER}, #{actual,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.audit.business.domain.ProjectCapital">
+    insert into project_capital
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="budget != null">
+        budget,
+      </if>
+      <if test="actual != null">
+        Actual,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="budget != null">
+        #{budget,jdbcType=INTEGER},
+      </if>
+      <if test="actual != null">
+        #{actual,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.business.domain.ProjectCapital">
+    update project_capital
+    <set>
+      <if test="budget != null">
+        budget = #{budget,jdbcType=INTEGER},
+      </if>
+      <if test="actual != null">
+        Actual = #{actual,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.audit.business.domain.ProjectCapital">
+    update project_capital
+    set budget = #{budget,jdbcType=INTEGER},
+      Actual = #{actual,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
