@@ -1,0 +1,63 @@
+2020-02-25 16:38:08.791  INFO 143952 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-02-25 16:38:08.796  INFO 143952 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-02-25 16:38:08.827  INFO 143952 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14ms. Found 0 Redis repository interfaces.
+2020-02-25 16:38:09.186  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.edu.audit.config.ShiroConfig$$EnhancerBySpringCGLIB$$5ce71f01] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.660  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'hashedCredentialsMatcher' of type [org.apache.shiro.authc.credential.HashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.700  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.708  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration$$EnhancerBySpringCGLIB$$2f13ead] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.710  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.722  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:09.750  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.111  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.116  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.117  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysUserMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.119  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysUserMapper' of type [com.sun.proxy.$Proxy80] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.122  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.123  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysRoleMapper' of type [com.sun.proxy.$Proxy81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.125  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.126  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'sysMenuMapper' of type [com.sun.proxy.$Proxy82] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.126  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'myShiroRealm' of type [com.edu.audit.config.MyShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.131  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.174  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.186  INFO 143952 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-25 16:38:10.555  INFO 143952 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8033 (http)
+2020-02-25 16:38:10.565  INFO 143952 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-02-25 16:38:10.566  INFO 143952 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-25 16:38:10.672  INFO 143952 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-02-25 16:38:10.672  INFO 143952 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2921 ms
+2020-02-25 16:38:11.556  INFO 143952 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-02-25 16:38:11.728  INFO 143952 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-25 16:38:11.881  WARN 143952 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2020-02-25 16:38:12.070  INFO 143952 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-02-25 16:38:12.117  INFO 143952 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-02-25 16:38:12.132  INFO 143952 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-02-25 16:38:12.176  INFO 143952 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-02-25 16:38:12.322  INFO 143952 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8033 (http) with context path ''
+2020-02-25 16:38:13.954  INFO 143952 --- [http-nio-8033-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-25 16:38:13.954  INFO 143952 --- [http-nio-8033-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-02-25 16:38:13.965  INFO 143952 --- [http-nio-8033-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-02-25 16:38:23.228  INFO 143952 --- [http-nio-8033-exec-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-02-25 16:38:23.230  WARN 143952 --- [http-nio-8033-exec-6] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2020-02-25 16:38:23.719  INFO 143952 --- [http-nio-8033-exec-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-02-25 16:38:23.770 DEBUG 143952 --- [http-nio-8033-exec-6] .b.d.P.queryProjectListByStagePage_COUNT : ==>  Preparing: SELECT count(0) FROM project WHERE stage = ? 
+2020-02-25 16:38:23.798 DEBUG 143952 --- [http-nio-8033-exec-6] .b.d.P.queryProjectListByStagePage_COUNT : ==> Parameters: 1(Integer)
+2020-02-25 16:38:23.870 DEBUG 143952 --- [http-nio-8033-exec-6] .b.d.P.queryProjectListByStagePage_COUNT : <==      Total: 1
+2020-02-25 16:38:23.880 DEBUG 143952 --- [http-nio-8033-exec-6] c.e.a.b.d.P.queryProjectListByStagePage  : ==>  Preparing: select id, project_name, user_id, stage, create_time, create_by, update_time, update_by, description from project where stage = ? LIMIT ? 
+2020-02-25 16:38:23.881 DEBUG 143952 --- [http-nio-8033-exec-6] c.e.a.b.d.P.queryProjectListByStagePage  : ==> Parameters: 1(Integer), 10(Integer)
+2020-02-25 16:38:23.909 DEBUG 143952 --- [http-nio-8033-exec-6] c.e.a.b.d.P.queryProjectListByStagePage  : <==      Total: 10
+2020-02-25 16:39:58.269 DEBUG 143952 --- [http-nio-8033-exec-9] .b.d.P.queryProjectListByStagePage_COUNT : ==>  Preparing: SELECT count(0) FROM project WHERE stage = ? 
+2020-02-25 16:39:58.269 DEBUG 143952 --- [http-nio-8033-exec-9] .b.d.P.queryProjectListByStagePage_COUNT : ==> Parameters: 1(Integer)
+2020-02-25 16:39:58.456 DEBUG 143952 --- [http-nio-8033-exec-9] .b.d.P.queryProjectListByStagePage_COUNT : <==      Total: 1
+2020-02-25 16:39:58.456 DEBUG 143952 --- [http-nio-8033-exec-9] c.e.a.b.d.P.queryProjectListByStagePage  : ==>  Preparing: select id, project_name, user_id, stage, create_time, create_by, update_time, update_by, description from project where stage = ? LIMIT ? 
+2020-02-25 16:39:58.457 DEBUG 143952 --- [http-nio-8033-exec-9] c.e.a.b.d.P.queryProjectListByStagePage  : ==> Parameters: 1(Integer), 10(Integer)
+2020-02-25 16:39:58.555 DEBUG 143952 --- [http-nio-8033-exec-9] c.e.a.b.d.P.queryProjectListByStagePage  : <==      Total: 10
+2020-02-25 16:40:21.714 DEBUG 143952 --- [http-nio-8033-exec-10] .b.d.P.queryProjectListByStagePage_COUNT : ==>  Preparing: SELECT count(0) FROM project WHERE stage = ? 
+2020-02-25 16:40:21.715 DEBUG 143952 --- [http-nio-8033-exec-10] .b.d.P.queryProjectListByStagePage_COUNT : ==> Parameters: 1(Integer)
+2020-02-25 16:40:21.799 DEBUG 143952 --- [http-nio-8033-exec-10] .b.d.P.queryProjectListByStagePage_COUNT : <==      Total: 1
+2020-02-25 16:40:21.800 DEBUG 143952 --- [http-nio-8033-exec-10] c.e.a.b.d.P.queryProjectListByStagePage  : ==>  Preparing: select id, project_name, user_id, stage, create_time, create_by, update_time, update_by, description from project where stage = ? LIMIT ?, ? 
+2020-02-25 16:40:21.800 DEBUG 143952 --- [http-nio-8033-exec-10] c.e.a.b.d.P.queryProjectListByStagePage  : ==> Parameters: 1(Integer), 10(Integer), 10(Integer)
+2020-02-25 16:40:21.828 DEBUG 143952 --- [http-nio-8033-exec-10] c.e.a.b.d.P.queryProjectListByStagePage  : <==      Total: 4
+2020-02-25 16:40:42.541  INFO 143952 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-02-25 16:40:42.544  INFO 143952 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-25 16:40:42.569  INFO 143952 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-02-25 16:40:42.586  INFO 143952 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
