@@ -61,6 +61,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
 
+        //放行test
+        filterChainDefinitionMap.put("/test/**", "anon");
+
         // 其他路径均需要身份认证，一般位于最下面，优先级最低
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

@@ -1,7 +1,9 @@
 package com.edu.audit.business.dao;
 
 import com.edu.audit.business.domain.ProjectCapital;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ProjectCapitalMapper {
     int deleteByPrimaryKey(String id);
 

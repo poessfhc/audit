@@ -22,18 +22,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     //分隔符定义
     private static final String splitor = ";";
+
     @Bean
-    public Docket docket(){
+    public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 //添加新的controller使用分隔符分隔包名，例如"xx.xx.xx.a"+ splitor +"xx.xx.aa.a"
-                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.authority.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.test"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    public ApiInfo apiInfo(){
+    public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("工程跟踪审计管理系统开发接口文档")
                 .description("工程跟踪审计管理系统开发毕业设计")
