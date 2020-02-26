@@ -19,7 +19,7 @@ public class Project {
      */
     private String userId;
     /**
-     * 工程阶段（1-立项 2-预算 3-拨付 4-结算 5-实施）
+     * 工程阶段（1-立项 2-立项审核中 3-预算 4-预算审核中 5-拨付 6-拨付审核中 7-结算 8-结算审核中 9-实施中 10-实施结束）
      */
     private Integer stage;
     /**

@@ -29,4 +29,10 @@ public class TestController {
     public Object findTest(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
         return projectService.findPage(pageNum, pageSize, stage);
     }
+
+    @GetMapping("changeStageTest")
+    @ApiOperation("改变工程阶段")
+    public Object changeStageTest(@RequestParam String id) {
+        return projectService.changeStage(id);
+    }
 }

@@ -30,6 +30,56 @@ public class ProjectServiceImpl implements ProjectService {
         return PageUtils.getPageResult(pageNum, pageSize, getPageInfo(pageNum, pageSize, stage));
     }
 
+    @Override
+    public int changeStage(String id) {
+        Integer count = projectMapper.selectByPrimaryKeyCount(id);
+        Integer stage = null;
+        if (count != 0) {
+            stage = projectMapper.selectByPrimaryKey(id).getStage();
+        } else {
+            try {
+                throw new Exception("异常id");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                return 0;
+            }
+        }
+        Integer afterStage = -1;
+        if (stage.equals(Identification.Project.LIXIANG)) {
+            afterStage = Identification.Project.LIXIANGZHONG;
+        }
+        if (stage.equals(Identification.Project.LIXIANGZHONG)) {
+            afterStage = Identification.Project.YUSUAN;
+        }
+        if (stage.equals(Identification.Project.YUSUAN)) {
+            afterStage = Identification.Project.YUSUANZHONG;
+        }
+        if (stage.equals(Identification.Project.YUSUANZHONG)) {
+            afterStage = Identification.Project.BOFU;
+        }
+        if (stage.equals(Identification.Project.BOFU)) {
+            afterStage = Identification.Project.BOFUZHONG;
+        }
+        if (stage.equals(Identification.Project.BOFUZHONG)) {
+            afterStage = Identification.Project.SHISHI;
+        }
+        if (stage.equals(Identification.Project.SHISHI)) {
+            afterStage = Identification.Project.SHISHIJIESHU;
+        }
+        if (stage.equals(Identification.Project.SHISHIJIESHU)) {
+            afterStage = Identification.Project.JIESUAN;
+        }
+        if (stage.equals(Identification.Project.JIESUAN)) {
+            afterStage = Identification.Project.JIESUANZHONG;
+        }
+        if (afterStage.equals(-1)) {
+            return 0;
+        }
+        int flag = projectMapper.changeStage(id, afterStage);
+        return flag;
+    }
+
     private PageInfo<Project> getPageInfo(Integer pageNum, Integer pageSize, Integer stage) {
         PageHelper.startPage(pageNum, pageSize);
         List<Project> projects = projectMapper.queryProjectListByStagePage(stage);

@@ -47,21 +47,41 @@ public class Identification {
          */
         public static final Integer LIXIANG = 1;
         /**
+         * 立项审批中
+         */
+        public static final Integer LIXIANGZHONG = 2;
+        /**
          * 预算
          */
-        public static final Integer YUSUAN = 2;
+        public static final Integer YUSUAN = 3;
+        /**
+         * 预算审批中
+         */
+        public static final Integer YUSUANZHONG = 4;
         /**
          * 拨付
          */
-        public static final Integer BOFU = 3;
+        public static final Integer BOFU = 5;
+        /**
+         * 拨付审批中
+         */
+        public static final Integer BOFUZHONG = 6;
         /**
          * 结算
          */
-        public static final Integer JIEDUAN = 4;
+        public static final Integer JIESUAN = 7;
         /**
-         * 实施
+         * 结算审批中
          */
-        public static final Integer SHISHI = 5;
+        public static final Integer JIESUANZHONG = 8;
+        /**
+         * 实施中
+         */
+        public static final Integer SHISHI = 9;
+        /**
+         * 实施结束
+         */
+        public static final Integer SHISHIJIESHU = 10;
 
     }
 }
