@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 //添加新的controller使用分隔符分隔包名，例如"xx.xx.xx.a"+ splitor +"xx.xx.aa.a"
-                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.test"))
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit"))
                 .paths(PathSelectors.any())
                 .build();
     }

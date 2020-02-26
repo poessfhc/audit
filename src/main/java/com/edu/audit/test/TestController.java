@@ -26,7 +26,7 @@ public class TestController {
 
     @GetMapping("fingTest")
     @ApiOperation("分页测试")
-    public Object findTest(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam Integer stage) {
+    public Object findTest(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
         return projectService.findPage(pageNum, pageSize, stage);
     }
 }

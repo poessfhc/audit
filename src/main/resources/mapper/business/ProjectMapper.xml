@@ -143,12 +143,16 @@
         select
         <include refid="Base_Column_List"/>
         from project
-        where stage = #{stage,jdbcType=VARCHAR}
+        where stage = #{stage,jdbcType=INTEGER}
     </select>
-    <select id="queryProjectListByStagePage" resultMap="BaseResultMap">
+    <select id="queryProjectListByStagePage" resultMap="BaseResultMap" parameterType="integer">
         select
         <include refid="Base_Column_List"/>
         from project
-        where stage = #{stage,jdbcType=VARCHAR}
+        <where>
+            <if test="_parameter != null">
+                stage = #{stage,jdbcType=INTEGER}
+            </if>
+        </where>
     </select>
 </mapper>
