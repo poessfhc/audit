@@ -1,6 +1,7 @@
 package com.edu.audit.business.service;
 
 import com.edu.audit.business.domain.Project;
+import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.utils.PageResult;
 
 import java.util.List;
@@ -15,6 +16,11 @@ import java.util.List;
 public interface ProjectService {
     /**
      * 根据工程阶段查询工程列表
+     *
+     * @param pageNum  当前页面
+     * @param pageSize 页面大小
+     * @param stage    工程阶段
+     * @return 分页后的详细数据
      */
     PageResult findPage(Integer pageNum, Integer pageSize, Integer stage);
 
@@ -25,4 +31,20 @@ public interface ProjectService {
      * @return 返回是否成功 0-失败 1-成功
      */
     int changeStage(String id);
+
+    /**
+     * 立项
+     *
+     * @param project 申请工程详细信息
+     * @return 返回是否成功 0-失败 1-成功
+     */
+    int listItems(Project project);
+
+    /**
+     * 通过主键查询查询工程信息和资金列表
+     *
+     * @param id 主键
+     * @return 工程信息和资金列表的集合数据
+     */
+    ProjectCapitalDto queryProjectCapital(String id);
 }

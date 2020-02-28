@@ -1,5 +1,6 @@
 package com.edu.audit.test;
 
+import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.business.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,5 +35,11 @@ public class TestController {
     @ApiOperation("改变工程阶段")
     public Object changeStageTest(@RequestParam String id) {
         return projectService.changeStage(id);
+    }
+
+    @GetMapping("/queryProjectCapital")
+    @ApiOperation("通过主键查询查询工程信息和资金列表")
+    public ProjectCapitalDto queryProjectCapital(@RequestParam String id) {
+        return projectService.queryProjectCapital(id);
     }
 }

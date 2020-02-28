@@ -1,7 +1,9 @@
 package com.edu.audit.business.service.impl;
 
+import com.edu.audit.business.dao.ProjectCapitalMapper;
 import com.edu.audit.business.dao.ProjectMapper;
 import com.edu.audit.business.domain.Project;
+import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.business.service.ProjectService;
 import com.edu.audit.utils.Identification;
 import com.edu.audit.utils.PageResult;
@@ -24,6 +26,8 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
     @Autowired
     ProjectMapper projectMapper;
+    @Autowired
+    ProjectCapitalMapper projectCapitalMapper;
 
     @Override
     public PageResult findPage(Integer pageNum, Integer pageSize, Integer stage) {
@@ -46,6 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
             }
         }
         Integer afterStage = -1;
+        //TODO 大概改成switch比较好吧
         if (stage.equals(Identification.Project.LIXIANG)) {
             afterStage = Identification.Project.LIXIANGZHONG;
         }
@@ -78,6 +83,18 @@ public class ProjectServiceImpl implements ProjectService {
         }
         int flag = projectMapper.changeStage(id, afterStage);
         return flag;
+    }
+
+    @Override
+    public int listItems(Project project) {
+        project.setStage(Identification.Project.LIXIANG);
+        int flag = projectMapper.insert(project);
+        return flag;
+    }
+
+    @Override
+    public ProjectCapitalDto queryProjectCapital(String id) {
+        return projectCapitalMapper.queryProjectCapital(id);
     }
 
     private PageInfo<Project> getPageInfo(Integer pageNum, Integer pageSize, Integer stage) {

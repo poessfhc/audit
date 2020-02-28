@@ -1,9 +1,16 @@
-package com.edu.audit.business.domain;
+package com.edu.audit.business.dto;
 
 import lombok.Data;
 
+/**
+ * @ClassName: ProjectCapitalDto
+ * @Description: 预算详细（联表）
+ * @Author: Vince
+ * @Date: 2020/2/27 15:18
+ * @Version: v1.0
+ */
 @Data
-public class ProjectCapital {
+public class ProjectCapitalDto {
     /**
      * 主键
      */
@@ -20,4 +27,8 @@ public class ProjectCapital {
      * 工程id
      */
     private String projectId;
+    /**
+     * 工程描述
+     */
+    private String description;
 }
