@@ -1,10 +1,11 @@
 package com.edu.audit.test;
 
 import com.edu.audit.business.dto.ProjectCapitalDto;
+import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.business.service.ProjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @Autowired
     ProjectService projectService;
+    @Autowired
+    InstallationService installationService;
 
     @GetMapping("fingTest")
     @ApiOperation("分页测试")
@@ -41,5 +44,11 @@ public class TestController {
     @ApiOperation("通过主键查询查询工程信息和资金列表")
     public ProjectCapitalDto queryProjectCapital(@RequestParam String id) {
         return projectService.queryProjectCapital(id);
+    }
+
+    @GetMapping("queryInstallationList")
+    @ApiOperation("查询设施价格")
+    public Object queryInstallationList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return installationService.queryInstallationList(pageNum, pageSize);
     }
 }

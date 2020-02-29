@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.audit.business.dao.InstallationMapper">
+    <resultMap id="BaseResultMap" type="com.edu.audit.business.domain.Installation">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="installation_name" jdbcType="VARCHAR" property="installationName"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, installation_name, price, description
+  </sql>
+    <select id="selectInstallationList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from installation
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from installation
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from installation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.edu.audit.business.domain.Installation">
+    insert into installation (id, installation_name, price, 
+      description)
+    values (#{id,jdbcType=INTEGER}, #{installationName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.edu.audit.business.domain.Installation">
+        insert into installation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="installationName != null">
+                installation_name,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="installationName != null">
+                #{installationName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.business.domain.Installation">
+        update installation
+        <set>
+            <if test="installationName != null">
+                installation_name = #{installationName,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.edu.audit.business.domain.Installation">
+    update installation
+    set installation_name = #{installationName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
