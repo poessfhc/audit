@@ -84,4 +84,9 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <update id="updatePriceById">
+    update installation
+    set price = #{price,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -10,11 +10,12 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * @ClassName: InstallationServiceImpl
- * @Description: TODO
+ * @Description: 工程具体设施实现
  * @Author: Vince
  * @Date: 2020/2/29 18:17
  * @Version: v1.0
@@ -33,5 +34,10 @@ public class InstallationServiceImpl implements InstallationService {
     @Override
     public PageResult queryInstallationList(Integer pageNum, Integer pageSize) {
         return PageUtils.getPageResult(pageNum, pageSize, getPageInfo(pageNum, pageSize));
+    }
+
+    @Override
+    public int updatePriceById(BigDecimal price, Integer id) {
+        return installationMapper.updatePriceById(price, id);
     }
 }

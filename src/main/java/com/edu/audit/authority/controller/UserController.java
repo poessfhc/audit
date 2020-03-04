@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     EmailService emailService;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     @ApiOperation("用户注册")
     @RequiresPermissions("user:create")
     public JsonResult register(@RequestBody SysUser sysUser) {
@@ -37,7 +37,7 @@ public class UserController {
         return new JsonResult(1, "注册成功", isSuccess);
     }
 
-    @GetMapping("sendCodeEmail")
+    @GetMapping("/sendCodeEmail")
     @ApiOperation("发送邮箱验证码")
     @RequiresPermissions("user:create")
     public JsonResult sendCodeEmail(@RequestParam String emailAddress) {

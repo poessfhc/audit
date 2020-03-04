@@ -13,6 +13,18 @@
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+    <resultMap id="MenuMap" type="com.edu.audit.authority.dto.MenuDto">
+        <id column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="menu_type" jdbcType="CHAR" property="menuType"/>
+        <result column="perms" jdbcType="VARCHAR" property="perms"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
     <sql id="Base_Column_List">
     menu_id, menu_name, parent_id, url, menu_type, perms, create_by, create_time, update_by,
     update_time
@@ -164,4 +176,19 @@
             and menu_id = #{menuId}
         </where>
     </delete>
+    <select id="queryMenuTypeList" resultMap="BaseResultMap">
+        select menu_id,menu_name,parent_id,url,perms
+        from sys_menu
+        where menu_type = "M"
+    </select>
+    <select id="queryMenuTypeListBy" resultMap="MenuMap">
+        select menu_id,menu_name,parent_id,url,perms
+        from sys_menu
+        where menu_type = "M"
+    </select>
+    <select id="queryControlTypeList" resultMap="BaseResultMap">
+        select menu_id,menu_name,parent_id,url,perms
+        from sys_menu
+        where parent_id=#{parentId,jdbcType=VARCHAR}
+    </select>
 </mapper>

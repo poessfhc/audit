@@ -5,6 +5,7 @@ import com.edu.audit.business.dto.InstallationDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -23,4 +24,6 @@ public interface InstallationMapper {
     int updateByPrimaryKeySelective(Installation record);
 
     int updateByPrimaryKey(Installation record);
+
+    int updatePriceById(BigDecimal price, Integer id);
 }
