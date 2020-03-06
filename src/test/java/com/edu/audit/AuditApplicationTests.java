@@ -38,7 +38,7 @@ class AuditApplicationTests {
 //        sysUserRole.setRoleId("b");
 //        sysUserRole.setUserId("a");
 //        SysRoleMenu sysRoleMenu = new SysRoleMenu();
-//        sysRoleMenu.setRoleId("a");
+//        sysRoleMenu.setRoleId("a");AS
 //        sysRoleMenu.setMenuId("b");
 //        sysRoleMapper.addRole(sysUserRole);
 //        sysMenuMapper.addMenu(sysRoleMenu);
@@ -55,5 +55,9 @@ class AuditApplicationTests {
 //        sysRoleMapper.deleteRole(sysUserRole);
 //        sysMenuMapper.deleteMenu(sysRoleMenu);
 //    }
+    @Test
+    void roleTest(){
+
+    }
 
 }

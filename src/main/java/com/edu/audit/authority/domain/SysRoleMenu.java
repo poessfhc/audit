@@ -1,5 +1,7 @@
 package com.edu.audit.authority.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,13 +12,10 @@ import lombok.Data;
  * @Version: v1.0
  */
 @Data
+@ApiModel("角色菜单中间表")
 public class SysRoleMenu {
-    /**
-     * 角色id
-     */
+    @ApiModelProperty("角色id")
     private String roleId;
-    /**
-     * 菜单id
-     */
+    @ApiModelProperty("菜单id")
     private String menuId;
 }

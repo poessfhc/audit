@@ -1,23 +1,18 @@
 package com.edu.audit.business.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel("工程资金")
 public class ProjectCapital {
-    /**
-     * 主键
-     */
+    @ApiModelProperty("主键")
     private String id;
-    /**
-     * 预算资金（元）
-     */
+    @ApiModelProperty("预算资金（元）")
     private Integer budget;
-    /**
-     * 实际资金（元）
-     */
+    @ApiModelProperty("实际资金（元）")
     private Integer actual;
-    /**
-     * 工程id
-     */
+    @ApiModelProperty("工程id")
     private String projectId;
 }

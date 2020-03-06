@@ -1,5 +1,7 @@
 package com.edu.audit.business.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,21 +14,14 @@ import java.math.BigDecimal;
  * @Version: v1.0
  */
 @Data
+@ApiModel("工程设施返回类")
 public class InstallationDto {
-    /**
-     * 主键
-     */
+    @ApiModelProperty("主键")
     private Integer id;
-    /**
-     * 设施名字
-     */
+    @ApiModelProperty("设施名字")
     private String installationName;
-    /**
-     * 设施价格（元/平方米）
-     */
+    @ApiModelProperty("设施价格（元/平方米）")
     private BigDecimal price;
-    /**
-     * 设施描述
-     */
+    @ApiModelProperty("设施描述")
     private String description;
 }

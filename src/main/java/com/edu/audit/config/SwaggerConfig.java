@@ -24,15 +24,42 @@ public class SwaggerConfig {
     private static final String splitor = ";";
 
     @Bean
-    public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2)
+    public Docket authorityApi() {
+        return  new Docket(DocumentationType.SWAGGER_2)
+                .groupName("权限管理")
+                .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()
-                //添加新的controller使用分隔符分隔包名，例如"xx.xx.xx.a"+ splitor +"xx.xx.aa.a"
-                .apis(RequestHandlerSelectors.basePackage("com.edu.audit"))
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.authority"))
+                .paths(PathSelectors.any())
+                .build();
+
+    }
+
+    @Bean
+    public Docket businessDocket() {
+        return  new Docket(DocumentationType.SWAGGER_2)
+                .groupName("业务管理")
+                .useDefaultResponseMessages(false)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.business"))
                 .paths(PathSelectors.any())
                 .build();
     }
+
+    @Bean
+    public Docket testDocket() {
+        return  new Docket(DocumentationType.SWAGGER_2)
+                .groupName("测试接口")
+                .useDefaultResponseMessages(false)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.test"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()

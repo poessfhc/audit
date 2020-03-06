@@ -1,49 +1,32 @@
 package com.edu.audit.authority.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@ApiModel("菜单")
 public class SysMenu {
-    /**
-     * 菜单ID
-     */
+    @ApiModelProperty("菜单ID")
     private String menuId;
-    /**
-     * 菜单名称
-     */
+    @ApiModelProperty("名称")
     private String menuName;
-    /**
-     * 父菜单ID
-     */
+    @ApiModelProperty("父菜单ID")
     private String parentId;
-    /**
-     * 请求地址
-     */
+    @ApiModelProperty("请求地址")
     private String url;
-    /**
-     * 菜单类型（M目录 C菜单 F按钮）
-     */
+    @ApiModelProperty("菜单类型（M目录 C菜单 F按钮）")
     private String menuType;
-    /**
-     * 权限标识
-     */
+    @ApiModelProperty("权限标识")
     private String perms;
-    /**
-     * 创建者
-     */
+    @ApiModelProperty("创建者")
     private String createBy;
-    /**
-     * 创建时间
-     */
+    @ApiModelProperty("创建时间")
     private Date createTime;
-    /**
-     * 更新者
-     */
+    @ApiModelProperty("更新者")
     private String updateBy;
-    /**
-     * 更新时间
-     */
+    @ApiModelProperty("更新时间")
     private Date updateTime;
 }

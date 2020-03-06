@@ -1,61 +1,39 @@
 package com.edu.audit.authority.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@ApiModel("用户")
 public class SysUser {
-    /**
-     * 用户ID
-     * */
+
+    @ApiModelProperty("用户ID")
     private String userId;
-    /**
-     * 用户名称
-     * */
+    @ApiModelProperty("用户名称")
     private String username;
-    /**
-     * 用户邮箱
-     * */
+    @ApiModelProperty("用户邮箱")
     private String email;
-    /**
-     * 手机号码
-     * */
+    @ApiModelProperty("手机号码")
     private String phonenumber;
-    /**
-     * 用户性别（0男 1女 2未知）
-     * */
+    @ApiModelProperty("用户性别（0男 1女 2未知）")
     private String sex;
-    /**
-     * 密码
-     * */
+    @ApiModelProperty("密码")
     private String password;
-    /**
-     * 盐加密
-     * */
+    @ApiModelProperty("盐加密")
     private String salt;
-    /**
-     * 删除标志
-     * */
+    @ApiModelProperty("删除标志")
     private String deleteFlag;
-    /**
-     * 创建者
-     * */
+    @ApiModelProperty("创建者")
     private String createBy;
-    /**
-     * 创建时间
-     * */
+    @ApiModelProperty("创建时间")
     private Date createTime;
-    /**
-     * 更新者
-     * */
+    @ApiModelProperty("更新者")
     private String updateBy;
-    /**
-     * 更新时间
-     * */
+    @ApiModelProperty("更新时间")
     private Date updateTime;
-    /**
-     * 验证码
-     * */
+    @ApiModelProperty("验证码")
     private String code;
 }

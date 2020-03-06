@@ -1,5 +1,7 @@
 package com.edu.audit.business.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,25 +12,16 @@ import lombok.Data;
  * @Version: v1.0
  */
 @Data
+@ApiModel("预算详细（联表）")
 public class ProjectCapitalDto {
-    /**
-     * 主键
-     */
+    @ApiModelProperty("主键")
     private String id;
-    /**
-     * 预算资金（元）
-     */
+    @ApiModelProperty("预算资金（元）")
     private Integer budget;
-    /**
-     * 实际资金（元）
-     */
+    @ApiModelProperty("实际资金（元）")
     private Integer actual;
-    /**
-     * 工程id
-     */
+    @ApiModelProperty("工程id")
     private String projectId;
-    /**
-     * 工程描述
-     */
+    @ApiModelProperty("工程描述")
     private String description;
 }

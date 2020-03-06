@@ -61,6 +61,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
 
+        filterChainDefinitionMap.put("/doc.html", "anon");
+
         //放行test
         filterChainDefinitionMap.put("/test/**", "anon");
 

@@ -1,5 +1,7 @@
 package com.edu.audit.authority.domain;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,13 +12,10 @@ import lombok.Data;
  * @Version: v1.0
  */
 @Data
+@ApiModel("用户角色中间表")
 public class SysUserRole {
-    /**
-     * 用户id
-     */
+    @ApiModelProperty("用户id")
     private String userId;
-    /**
-     * 角色id
-     */
+    @ApiModelProperty("角色id")
     private String roleId;
 }
