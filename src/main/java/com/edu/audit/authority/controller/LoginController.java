@@ -1,6 +1,7 @@
 package com.edu.audit.authority.controller;
 
 import com.edu.audit.authority.service.UserService;
+import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -30,7 +31,7 @@ public class LoginController {
 
     @ApiOperation(value = "简单登录测试接口")
     @PostMapping("/login")
-    public Serializable login(@RequestParam String username, @RequestParam String password) {
+    public Result login(@RequestParam String username, @RequestParam String password) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         SecurityUtils.getSubject().login(token);
         //设置session时间
@@ -38,7 +39,9 @@ public class LoginController {
         //token信息
         Subject subject = SecurityUtils.getSubject();
         Serializable tokenId = subject.getSession().getId();
-        return tokenId;
+        Result result = new Result(200, "登录成功");
+        result.putData("authToken", tokenId);
+        return result;
     }
 
     @GetMapping("/test")

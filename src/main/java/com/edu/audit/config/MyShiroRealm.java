@@ -49,13 +49,21 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = (String) getAvailablePrincipal(principalCollection);
         List<String> roleList = sysUserMapper.getRolesByName(username);
         Set<String> roles = new HashSet<>(roleList);
-        List<String> permissionList = sysUserMapper.getPermissionsByRoleName(roleList);
-        Set<String> permissions = new HashSet<>(permissionList);
+        List<String> permissionList = null;
+        if (roles.size() != 0) {
+            permissionList = sysUserMapper.getPermissionsByRoleName(roleList);
+        }
+        Set<String> permissions = null;
+        try {
+             permissions = new HashSet<>(permissionList);
+        } catch (NullPointerException ex){
+            permissions = null;
+        }
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setStringPermissions(permissions);
         simpleAuthorizationInfo.setRoles(roles);
-        log.debug("== >角色:" + String.join(",", roles));
-        log.debug("== >权限:" + String.join(",", permissions));
+//        log.debug("== >角色:" + String.join(",", roles));
+//        log.debug("== >权限:" + String.join(",", permissions));
         return simpleAuthorizationInfo;
     }
 

@@ -2,7 +2,7 @@ package com.edu.audit.filter;
 
 import com.alibaba.fastjson.JSONObject;
 
-import com.edu.audit.utils.JsonResult;
+import com.edu.audit.utils.Result;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 import javax.servlet.ServletRequest;
@@ -38,13 +38,13 @@ public class CORSAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletResponse res = (HttpServletResponse)response;
+        HttpServletResponse res = (HttpServletResponse) response;
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
-        JsonResult jsonResult = new JsonResult(0, null, "请先登录系统！", 400);
-        writer.write(JSONObject.toJSONString(jsonResult));
+        Result result = new Result(400, "请先登录系统！");
+        writer.write(JSONObject.toJSONString(request));
         writer.close();
         return false;
     }

@@ -1,5 +1,8 @@
 package com.edu.audit.utils;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,7 @@ import java.io.Serializable;
  * @Date: 2020/2/7 13:32
  * @Version: v1.0
  */
+@Data
 public class JsonResult implements Serializable {
     private static final long serialVersionUID = 1L;
     public static final int SUCCESS = 1;
@@ -60,38 +64,6 @@ public class JsonResult implements Serializable {
     public JsonResult(Object data) {
         state = SUCCESS;
         this.data = data;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public String getErrmsg() {
-        return errmsg;
-    }
-
-    public void setErrmsg(String errmsg) {
-        this.errmsg = errmsg;
-    }
-
-    public int getErrcode() {
-        return errcode;
-    }
-
-    public void setErrcode(int errcode) {
-        this.errcode = errcode;
     }
 
     @Override

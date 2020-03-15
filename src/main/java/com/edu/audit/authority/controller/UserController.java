@@ -3,7 +3,7 @@ package com.edu.audit.authority.controller;
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.EmailService;
 import com.edu.audit.authority.service.UserService;
-import com.edu.audit.utils.JsonResult;
+import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -29,19 +29,25 @@ public class UserController {
     @PostMapping("/register")
     @ApiOperation("用户注册")
     @RequiresPermissions("user:create")
-    public JsonResult register(@RequestBody SysUser sysUser) {
+    public Result register(@RequestBody SysUser sysUser) {
         Integer isSuccess = userService.register(sysUser);
+        Result result;
         if (isSuccess == null) {
-            return new JsonResult(0, "验证码错误", isSuccess);
+            result = new Result(0, "验证码错误");
+            result.putData("flag", isSuccess);
+            return result;
         }
-        return new JsonResult(1, "注册成功", isSuccess);
+        result = new Result(0, "注册成功");
+        result.putData("flag", isSuccess);
+        return result;
     }
 
     @GetMapping("/sendCodeEmail")
     @ApiOperation("发送邮箱验证码")
     @RequiresPermissions("user:create")
-    public JsonResult sendCodeEmail(@RequestParam String emailAddress) {
+    public Result sendCodeEmail(@RequestParam String emailAddress) {
         emailService.sendEmailCode(emailAddress);
-        return new JsonResult(1, "发送成功", "success");
+        Result result = new Result(1, "发送成功");
+        return result;
     }
 }

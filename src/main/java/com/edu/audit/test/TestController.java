@@ -4,6 +4,8 @@ import com.edu.audit.authority.service.MenuService;
 import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.business.service.ProjectService;
+import com.edu.audit.utils.PageResult;
+import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -35,37 +37,49 @@ public class TestController {
 
     @GetMapping("/fingTest")
     @ApiOperation("分页测试")
-    public Object findTest(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
-        return projectService.findPage(pageNum, pageSize, stage);
+    public Result findTest(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
+        Result result = new Result(200, "查询成功");
+        result.putData("pageResult", projectService.findPage(pageNum, pageSize, stage));
+        return result;
     }
 
     @GetMapping("/changeStageTest")
     @ApiOperation("改变工程阶段")
-    public Object changeStageTest(@RequestParam String id) {
-        return projectService.changeStage(id);
+    public Result changeStageTest(@RequestParam String id) {
+        Result result = new Result(200, "变更成功");
+        result.putData("flag", projectService.changeStage(id));
+        return result;
     }
 
     @GetMapping("/queryProjectCapital")
     @ApiOperation("通过主键查询查询工程信息和资金列表")
-    public ProjectCapitalDto queryProjectCapital(@RequestParam String id) {
-        return projectService.queryProjectCapital(id);
+    public Result queryProjectCapital(@RequestParam String id) {
+        Result result = new Result(200, "查询成功");
+        result.putData("projectCapital",projectService.queryProjectCapital(id));
+        return result;
     }
 
     @GetMapping("/queryInstallationList")
     @ApiOperation("查询设施价格")
-    public Object queryInstallationList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return installationService.queryInstallationList(pageNum, pageSize);
+    public Result queryInstallationList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        Result result = new Result(200, "查询成功");
+        result.putData("pageResult",installationService.queryInstallationList(pageNum, pageSize));
+        return result;
     }
 
     @GetMapping("/updatePriceById")
     @ApiOperation("通过id更改设施价格")
-    public Integer updatePriceById(@RequestParam BigDecimal price, @RequestParam Integer id) {
-        return installationService.updatePriceById(price, id);
+    public Result updatePriceById(@RequestParam BigDecimal price, @RequestParam Integer id) {
+        Result result = new Result(200, "变更成功");
+        result.putData("flag",installationService.updatePriceById(price, id));
+        return result;
     }
 
     @GetMapping("/queryControlTypeList")
     @ApiOperation("查询菜单")
-    public Object queryControlTypeList() {
-        return menuService.queryControlTypeList();
+    public Result queryControlTypeList() {
+        Result result = new Result(200, "查询成功");
+        result.putData("menu",menuService.queryControlTypeList());
+        return result;
     }
 }
