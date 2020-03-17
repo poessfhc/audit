@@ -39,7 +39,7 @@ public interface SysMenuMapper {
      *
      * @return 一级菜单返回数据
      */
-    List<MenuDto> queryMenuTypeListBy();
+    List<MenuDto> queryMenuTypeListBy(String username);
 
     /**
      * 通过父类id查询二级按钮

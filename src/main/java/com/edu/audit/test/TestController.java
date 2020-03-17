@@ -32,8 +32,6 @@ public class TestController {
     ProjectService projectService;
     @Autowired
     InstallationService installationService;
-    @Autowired
-    MenuService menuService;
 
     @GetMapping("/fingTest")
     @ApiOperation("分页测试")
@@ -75,11 +73,4 @@ public class TestController {
         return result;
     }
 
-    @GetMapping("/queryControlTypeList")
-    @ApiOperation("查询菜单")
-    public Result queryControlTypeList() {
-        Result result = new Result(200, "查询成功");
-        result.putData("menu",menuService.queryControlTypeList());
-        return result;
-    }
 }

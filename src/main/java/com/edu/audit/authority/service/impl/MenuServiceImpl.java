@@ -4,6 +4,7 @@ import com.edu.audit.authority.dao.SysMenuMapper;
 import com.edu.audit.authority.domain.SysMenu;
 import com.edu.audit.authority.dto.MenuDto;
 import com.edu.audit.authority.service.MenuService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDto> queryControlTypeList() {
+        String currentUser = (String) SecurityUtils.getSubject().getPrincipal();
         //存放菜单按钮
-        List<MenuDto> menuList = sysMenuMapper.queryMenuTypeListBy();
+        List<MenuDto> menuList = sysMenuMapper.queryMenuTypeListBy(currentUser);
         //存放详细菜单以及对应按钮的数据
         for (int i = 0; i < menuList.size(); i++) {
             menuList.get(i).setMenuControlLists(sysMenuMapper.queryControlTypeList(menuList.get(i).getParentId()));

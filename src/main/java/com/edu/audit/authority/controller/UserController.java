@@ -2,6 +2,7 @@ package com.edu.audit.authority.controller;
 
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.EmailService;
+import com.edu.audit.authority.service.MenuService;
 import com.edu.audit.authority.service.UserService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
@@ -26,6 +27,8 @@ public class UserController {
     UserService userService;
     @Autowired
     EmailService emailService;
+    @Autowired
+    MenuService menuService;
 
     @PostMapping("/register")
     @ApiOperation("用户注册")
@@ -59,6 +62,14 @@ public class UserController {
         Object o = SecurityUtils.getSubject().getPrincipal();
         Result result = new Result(200,"查询成功");
         result.putData("currentUser",o);
+        return result;
+    }
+
+    @GetMapping("/queryControlTypeList")
+    @ApiOperation("查询用户菜单")
+    public Result queryControlTypeList() {
+        Result result = new Result(200, "查询成功");
+        result.putData("menu",menuService.queryControlTypeList());
         return result;
     }
 }
