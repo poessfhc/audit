@@ -55,9 +55,5 @@ class AuditApplicationTests {
 //        sysRoleMapper.deleteRole(sysUserRole);
 //        sysMenuMapper.deleteMenu(sysRoleMenu);
 //    }
-    @Test
-    void roleTest(){
-
-    }
 
 }

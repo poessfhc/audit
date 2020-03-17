@@ -6,6 +6,7 @@ import com.edu.audit.authority.service.UserService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,16 @@ public class UserController {
     public Result sendCodeEmail(@RequestParam String emailAddress) {
         emailService.sendEmailCode(emailAddress);
         Result result = new Result(1, "发送成功");
+        return result;
+    }
+
+    @GetMapping("/currentUser")
+    @ApiOperation("当前用户")
+    @RequiresPermissions("user:create")
+    public Result queryCurrentUser(){
+        Object o = SecurityUtils.getSubject().getPrincipal();
+        Result result = new Result(200,"查询成功");
+        result.putData("currentUser",o);
         return result;
     }
 }

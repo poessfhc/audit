@@ -1,11 +1,14 @@
 package com.edu.audit.authority.controller;
 
+import com.edu.audit.authority.domain.SysUser;
+import com.edu.audit.authority.domain.User;
 import com.edu.audit.authority.service.UserService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
@@ -31,8 +34,8 @@ public class LoginController {
 
     @ApiOperation(value = "简单登录测试接口")
     @PostMapping("/login")
-    public Result login(@RequestParam String username, @RequestParam String password) {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+    public Result login(@RequestBody User user) {
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         SecurityUtils.getSubject().login(token);
         //设置session时间
         //SecurityUtils.getSubject().getSession().setTimeout(1000*60*30);
@@ -45,12 +48,10 @@ public class LoginController {
     }
 
     @GetMapping("/test")
-    public String test() {
-        String salt = UUID.randomUUID().toString();
-        System.out.println(salt);
-        Object md5Password = new SimpleHash("MD5", "admin", ByteSource.Util.bytes(salt), 1024);
-        System.out.println(md5Password.toString());
-        return "ttt";
+    @RequiresPermissions("user:create")
+    public Result test() {
+        Result result = new Result(200, "查询");
+        return result;
     }
 
 }
