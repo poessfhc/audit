@@ -35,7 +35,7 @@ public class MenuServiceImpl implements MenuService {
         List<MenuDto> menuList = sysMenuMapper.queryMenuTypeListBy(currentUser);
         //存放详细菜单以及对应按钮的数据
         for (int i = 0; i < menuList.size(); i++) {
-            menuList.get(i).setMenuControlLists(sysMenuMapper.queryControlTypeList(menuList.get(i).getParentId()));
+            menuList.get(i).setChildren(sysMenuMapper.queryControlTypeList(menuList.get(i).getMenuId()));
         }
         return menuList;
     }

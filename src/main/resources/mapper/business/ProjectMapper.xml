@@ -9,7 +9,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="update_by" jdbcType="TIMESTAMP" property="updateBy"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
     <sql id="Base_Column_List">

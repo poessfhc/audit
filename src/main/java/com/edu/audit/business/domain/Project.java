@@ -24,7 +24,7 @@ public class Project {
     @ApiModelProperty("更新时间")
     private Date updateTime;
     @ApiModelProperty("更新人")
-    private Date updateBy;
+    private String updateBy;
     @ApiModelProperty("工程描述")
     private String description;
 }

@@ -69,7 +69,7 @@ public class UserController {
     @ApiOperation("查询用户菜单")
     public Result queryControlTypeList() {
         Result result = new Result(200, "查询成功");
-        result.putData("menu",menuService.queryControlTypeList());
+        result.putData("data",menuService.queryControlTypeList());
         return result;
     }
 }

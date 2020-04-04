@@ -70,6 +70,10 @@ public class ShiroConfig {
         filterMap.put("/doc.html", "anon");
 
 
+
+        filterMap.put("/test/**","anon");
+
+
         //剩余的请求shiro都拦截
         filterMap.put("/**/*", "authc");
 

@@ -39,5 +39,5 @@ public class MenuDto {
     @ApiModelProperty("更新时间")
     private Date updateTime;
     @ApiModelProperty("父菜单下的按钮")
-    private List<SysMenu> menuControlLists;
+    private List<SysMenu> children;
 }
