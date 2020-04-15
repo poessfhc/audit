@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.audit.business.dao.ProjectApplyMapper">
+  <resultMap id="BaseResultMap" type="com.edu.audit.business.domain.ProjectApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_name" jdbcType="VARCHAR" property="applyName" />
+    <result column="apply_info" jdbcType="VARCHAR" property="applyInfo" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_name, apply_info, status, apply_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectApply">
+    insert into project_apply (id, apply_name, apply_info, 
+      status, apply_user)
+    values (#{id,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{applyInfo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{applyUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.audit.business.domain.ProjectApply">
+    insert into project_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="applyName != null">
+        apply_name,
+      </if>
+      <if test="applyInfo != null">
+        apply_info,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyName != null">
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyInfo != null">
+        #{applyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.business.domain.ProjectApply">
+    update project_apply
+    <set>
+      <if test="applyName != null">
+        apply_name = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyInfo != null">
+        apply_info = #{applyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.audit.business.domain.ProjectApply">
+    update project_apply
+    set apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_info = #{applyInfo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      apply_user = #{applyUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

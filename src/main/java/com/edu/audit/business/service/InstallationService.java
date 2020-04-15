@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface InstallationService {
     /**
-     * 根据工程阶段查询工程列表
+     * 查询材料列表
      *
      * @param pageNum  当前页面
      * @param pageSize 页面大小

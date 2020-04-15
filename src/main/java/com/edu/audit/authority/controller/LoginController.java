@@ -2,6 +2,7 @@ package com.edu.audit.authority.controller;
 
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.domain.User;
+import com.edu.audit.authority.service.MenuService;
 import com.edu.audit.authority.service.UserService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
@@ -31,6 +32,8 @@ import java.util.UUID;
 public class LoginController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MenuService menuService;
 
     @ApiOperation(value = "简单登录测试接口")
     @PostMapping("/login")
@@ -44,6 +47,9 @@ public class LoginController {
         Serializable tokenId = subject.getSession().getId();
         Result result = new Result(200, "登录成功");
         result.putData("authToken", tokenId);
+        result.putData("routerData",menuService.queryRouterData());
+        result.putData("navData", menuService.queryControlTypeList());
+        result.putData("username", SecurityUtils.getSubject().getPrincipal());
         return result;
     }
 

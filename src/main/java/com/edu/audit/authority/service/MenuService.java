@@ -2,6 +2,7 @@ package com.edu.audit.authority.service;
 
 import com.edu.audit.authority.domain.SysMenu;
 import com.edu.audit.authority.dto.MenuDto;
+import com.edu.audit.authority.dto.RouterData;
 
 import java.util.List;
 
@@ -23,4 +24,9 @@ public interface MenuService {
      *
      */
     List<MenuDto> queryControlTypeList();
+
+    /**
+     * 查询路由数据
+     */
+    List<RouterData> queryRouterData();
 }
