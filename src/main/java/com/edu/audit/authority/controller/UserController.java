@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/queryUser")
     public Result queryUserList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         Result result = new Result(200, "查询成功");
-        result.putData("userList", userService.queryUser(pageNum, pageSize));
+        result.putData("pageResult", userService.queryUser(pageNum, pageSize));
         return result;
     }
 

@@ -44,7 +44,7 @@ public class CORSAuthenticationFilter extends FormAuthenticationFilter {
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
         Result result = new Result(400, "请先登录系统！");
-        writer.write(JSONObject.toJSONString(request));
+        writer.write(JSONObject.toJSONString(result));
         writer.close();
         return false;
     }

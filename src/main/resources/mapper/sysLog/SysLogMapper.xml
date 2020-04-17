@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.audit.sysLog.dao.SysLogDao">
+    <resultMap id="sysLogMap" type="com.edu.audit.sysLog.domain.SysLog">
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="operation" jdbcType="VARCHAR" property="operation"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <select id="querySysLogList" resultMap="sysLogMap">
+        select username,operation,method,ip,create_time
+        from sys_log
+    </select>
+    <insert id="insertSysLog" parameterType="com.edu.audit.sysLog.domain.SysLog">
+        insert into sys_log(id,username,operation,time,method,params,ip,create_time)
+        values (
+        #{id},
+        #{username},
+        #{operation},
+        now(),
+        #{method},
+        #{params},
+        #{ip},
+        now()
+        )
+    </insert>
+</mapper>

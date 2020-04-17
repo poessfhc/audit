@@ -49,6 +49,18 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public Docket logDocket() {
+        return  new Docket(DocumentationType.SWAGGER_2)
+                .groupName("日志管理")
+                .useDefaultResponseMessages(false)
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.edu.audit.sysLog"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
     public Docket testDocket() {
         return  new Docket(DocumentationType.SWAGGER_2)
                 .groupName("测试接口")
