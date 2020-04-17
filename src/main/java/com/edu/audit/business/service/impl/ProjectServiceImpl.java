@@ -4,6 +4,7 @@ import com.edu.audit.business.dao.ProjectCapitalMapper;
 import com.edu.audit.business.dao.ProjectMapper;
 import com.edu.audit.business.domain.Project;
 import com.edu.audit.business.dto.ProjectCapitalDto;
+import com.edu.audit.business.dto.ProjectDto;
 import com.edu.audit.business.service.ProjectService;
 import com.edu.audit.utils.Identification;
 import com.edu.audit.utils.PageResult;
@@ -97,9 +98,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectCapitalMapper.queryProjectCapital(id);
     }
 
-    private PageInfo<Project> getPageInfo(Integer pageNum, Integer pageSize, Integer stage) {
+    private PageInfo<ProjectDto> getPageInfo(Integer pageNum, Integer pageSize, Integer stage) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Project> projects = projectMapper.queryProjectListByStagePage(stage);
-        return new PageInfo<Project>(projects);
+        List<ProjectDto> projects = projectMapper.queryProjectDtoListByStagePage(stage);
+        return new PageInfo<ProjectDto>(projects);
     }
 }

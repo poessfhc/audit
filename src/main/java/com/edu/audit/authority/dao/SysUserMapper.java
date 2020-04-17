@@ -15,6 +15,8 @@ public interface SysUserMapper {
 
     int insertSelective(SysUser record);
 
+    List<SysUser> selectAllUser();
+
     SysUser selectByPrimaryKey(String userId);
 
     int updateByPrimaryKeySelective(SysUser record);

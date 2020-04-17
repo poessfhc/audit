@@ -1,6 +1,7 @@
 package com.edu.audit.business.dao;
 
 import com.edu.audit.business.domain.Project;
+import com.edu.audit.business.dto.ProjectDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,11 @@ public interface ProjectMapper {
      * 根据阶段查询工程列表
      */
     List<Project> queryProjectListByStagePage(Integer stage);
+
+    /**
+     * 根据阶段查询工程列表
+     */
+    List<ProjectDto> queryProjectDtoListByStagePage(Integer stage);
 
     /**
      * 通过id变更阶段

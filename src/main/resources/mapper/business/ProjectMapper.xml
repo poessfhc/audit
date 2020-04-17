@@ -12,6 +12,18 @@
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
+    <resultMap id="ProjectDtoMap" type="com.edu.audit.business.dto.ProjectDto">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="stage" jdbcType="INTEGER" property="stage"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, project_name, user_id, stage, create_time, create_by, update_time, update_by, 
     description
@@ -160,6 +172,16 @@
             </if>
         </where>
     </select>
+    <select id="queryProjectDtoListByStagePage" resultMap="ProjectDtoMap" parameterType="integer">
+        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by, p.description,u.username
+        from project p left join sys_user u on p.user_id = u.user_id
+        <where>
+            <if test="_parameter != null">
+                stage = #{stage,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
     <update id="changeStage">
         update project
         set stage = #{stage,jdbcType=INTEGER}

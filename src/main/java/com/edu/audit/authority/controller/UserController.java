@@ -30,6 +30,13 @@ public class UserController {
     @Autowired
     MenuService menuService;
 
+    @GetMapping("/queryUser")
+    public Result queryUserList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        Result result = new Result(200, "查询成功");
+        result.putData("userList", userService.queryUser(pageNum, pageSize));
+        return result;
+    }
+
     @PostMapping("/register")
     @ApiOperation("用户注册")
     @RequiresPermissions("user:create")
@@ -58,10 +65,10 @@ public class UserController {
     @GetMapping("/currentUser")
     @ApiOperation("当前用户")
     @RequiresPermissions("user:create")
-    public Result queryCurrentUser(){
+    public Result queryCurrentUser() {
         Object o = SecurityUtils.getSubject().getPrincipal();
-        Result result = new Result(200,"查询成功");
-        result.putData("currentUser",o);
+        Result result = new Result(200, "查询成功");
+        result.putData("currentUser", o);
         return result;
     }
 
@@ -69,7 +76,7 @@ public class UserController {
     @ApiOperation("查询用户菜单")
     public Result queryControlTypeList() {
         Result result = new Result(200, "查询成功");
-        result.putData("data",menuService.queryControlTypeList());
+        result.putData("data", menuService.queryControlTypeList());
         return result;
     }
 }

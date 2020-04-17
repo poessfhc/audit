@@ -4,12 +4,17 @@ import com.edu.audit.authority.dao.SysUserMapper;
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.UserService;
 import com.edu.audit.redis.service.RedisService;
+import com.edu.audit.utils.PageResult;
+import com.edu.audit.utils.PageUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,6 +30,11 @@ public class UserServiceImpl implements UserService {
     SysUserMapper sysUserMapper;
     @Autowired
     RedisService redisService;
+
+    @Override
+    public PageResult queryUser(Integer pageNum, Integer pageSize) {
+        return PageUtils.getPageResult(pageNum, pageSize, getPageInfo(pageNum, pageSize));
+    }
 
     @Override
     public SysUser selectByPrimaryKey(String id) {
@@ -51,6 +61,12 @@ public class UserServiceImpl implements UserService {
         sysUser.setSalt(salt);
         sysUser.setPassword(md5Password.toString());
         return sysUserMapper.insert(sysUser);
+    }
+
+    private PageInfo<SysUser> getPageInfo(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SysUser> projects = sysUserMapper.selectAllUser();
+        return new PageInfo<SysUser>(projects);
     }
 
 }
