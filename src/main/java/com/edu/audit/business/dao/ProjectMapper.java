@@ -37,6 +37,11 @@ public interface ProjectMapper {
     List<ProjectDto> queryProjectDtoListByStagePage(Integer stage);
 
     /**
+     * 根据阶段查询待审核工程列表
+     */
+    List<ProjectDto> queryAuditProjectDtoListByStagePage(Integer stage);
+
+    /**
      * 通过id变更阶段
      */
     int changeStage(String id, Integer stage);

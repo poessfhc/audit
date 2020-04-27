@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @ClassName: ProjectServiceImpl
@@ -33,6 +34,23 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public PageResult findPage(Integer pageNum, Integer pageSize, Integer stage) {
         return PageUtils.getPageResult(pageNum, pageSize, getPageInfo(pageNum, pageSize, stage));
+    }
+
+    @Override
+    public PageResult findAuditPage(Integer pageNum, Integer pageSize, Integer stage) {
+        return PageUtils.getPageResult(pageNum, pageSize, getAuditPageInfo(pageNum, pageSize, stage));
+    }
+
+    @Override
+    public int insertProject(Project project) {
+        project.setId(UUID.randomUUID().toString());
+        project.setStage(Identification.Project.LIXIANGZHONG);
+        return projectMapper.insert(project);
+    }
+
+    @Override
+    public Project queryProjectById(String id) {
+        return projectMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -101,6 +119,12 @@ public class ProjectServiceImpl implements ProjectService {
     private PageInfo<ProjectDto> getPageInfo(Integer pageNum, Integer pageSize, Integer stage) {
         PageHelper.startPage(pageNum, pageSize);
         List<ProjectDto> projects = projectMapper.queryProjectDtoListByStagePage(stage);
+        return new PageInfo<ProjectDto>(projects);
+    }
+
+    private PageInfo<ProjectDto> getAuditPageInfo(Integer pageNum, Integer pageSize, Integer stage) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ProjectDto> projects = projectMapper.queryAuditProjectDtoListByStagePage(stage);
         return new PageInfo<ProjectDto>(projects);
     }
 }

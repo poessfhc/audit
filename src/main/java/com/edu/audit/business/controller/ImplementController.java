@@ -1,14 +1,12 @@
 package com.edu.audit.business.controller;
 
+import com.edu.audit.business.domain.Project;
 import com.edu.audit.business.service.ProjectService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName: ImplementController
@@ -24,11 +22,41 @@ public class ImplementController {
     @Autowired
     private ProjectService projectService;
 
+
+    @PostMapping("/insertProject")
+    @ApiOperation("发布工程")
+    public Result insertProject(@RequestBody Project project) {
+        Integer flag = projectService.insertProject(project);
+        Result result;
+        if (flag.equals(1)) {
+            result = new Result(200, "发布成功");
+            return result;
+        }
+        result = new Result(-1, "发布失败");
+        return result;
+    }
+
     @GetMapping("/queryProjectListByStatus")
     @ApiOperation("根据状态查询工程列表")
     public Result queryProjectListByStatus(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
         Result result = new Result(200, "查询成功");
         result.putData("pageResult", projectService.findPage(pageNum, pageSize, stage));
+        return result;
+    }
+
+    @GetMapping("/queryAuditProjectListByStatus")
+    @ApiOperation("根据状态查询工程列表")
+    public Result queryAuditProjectListByStatus(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer stage) {
+        Result result = new Result(200, "查询成功");
+        result.putData("pageResult", projectService.findAuditPage(pageNum, pageSize, stage));
+        return result;
+    }
+
+    @GetMapping("/queryProjectById/{id}")
+    @ApiOperation("通过id查询工程信息")
+    public Result queryProjectById(@PathVariable("id") String id) {
+        Result result = new Result(200, "查询成功");
+        result.putData("project", projectService.queryProjectById(id));
         return result;
     }
 

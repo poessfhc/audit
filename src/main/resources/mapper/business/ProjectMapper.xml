@@ -49,8 +49,8 @@
       update_time, update_by, description
       )
     values (#{id,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{stage,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
+      #{stage,jdbcType=INTEGER}, now(), #{createBy,jdbcType=VARCHAR},
+      now(), #{updateBy,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.edu.audit.business.domain.Project">
@@ -179,6 +179,21 @@
             <if test="_parameter != null">
                 stage = #{stage,jdbcType=INTEGER}
             </if>
+        </where>
+    </select>
+
+    <select id="queryAuditProjectDtoListByStagePage" resultMap="ProjectDtoMap" parameterType="integer">
+        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by, p.description,u.username
+        from project p left join sys_user u on p.user_id = u.user_id
+        <where>
+        <choose>
+            <when test="_parameter != null">
+                stage = #{stage,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                stage in ("2","4","6","8")
+            </otherwise>
+        </choose>
         </where>
     </select>
 
