@@ -49,7 +49,7 @@ public interface SysMenuMapper {
      * @param parentId 父类id
      * @return 二级菜单返回数据
      */
-    List<SubMenu> queryControlTypeList(String parentId);
+    List<SubMenu> queryControlTypeList(String username, String parentId);
 
     /**
      * 查询二级菜单

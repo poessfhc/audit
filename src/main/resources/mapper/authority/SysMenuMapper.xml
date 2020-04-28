@@ -196,9 +196,13 @@
         where username = #{username} and m.menu_type = "M"
     </select>
     <select id="queryControlTypeList" resultMap="SubMenu">
-        select menu_name,url
-        from sys_menu
-        where parent_id=#{parentId,jdbcType=VARCHAR}
+        select m.menu_name,m.url
+        from sys_menu m
+        left join sys_role_menu rm on rm.menu_id = m.menu_id
+        left join sys_role r on rm.role_id = r.role_id
+        left join sys_user_role ur on r.role_id = ur.role_id
+        left join sys_user u on ur.user_id = u.user_id
+        where username = #{username} and m.menu_type = "C" and m.parent_id = #{parentId}
     </select>
 
     <select id="queryRouterList" resultMap="RouterMap">

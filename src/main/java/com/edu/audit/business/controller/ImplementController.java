@@ -52,9 +52,9 @@ public class ImplementController {
         return result;
     }
 
-    @GetMapping("/queryProjectById/{id}")
+    @GetMapping("/queryProjectById")
     @ApiOperation("通过id查询工程信息")
-    public Result queryProjectById(@PathVariable("id") String id) {
+    public Result queryProjectById(@RequestParam String id) {
         Result result = new Result(200, "查询成功");
         result.putData("project", projectService.queryProjectById(id));
         return result;
