@@ -32,6 +32,10 @@ public class ShiroConfig {
 
 
 
+    public CORSAuthenticationFilter corsAuthenticationFilter(){
+        return new CORSAuthenticationFilter();
+    }
+
     /**
      * 对shiro的拦截器进行注入
      * <p>
@@ -75,14 +79,14 @@ public class ShiroConfig {
 
 
         //剩余的请求shiro都拦截
-        filterMap.put("/**/*", "authc");
+        filterMap.put("/**/*", "corsAuthenticationFilter");
 
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
 
         //自定义拦截器
         Map<String, Filter> customFilterMap = new LinkedHashMap<>();
-        customFilterMap.put("corsAuthenticationFilter", new CORSAuthenticationFilter());
+        customFilterMap.put("corsAuthenticationFilter", corsAuthenticationFilter());
         shiroFilter.setFilters(customFilterMap);
 
         return shiroFilter;
