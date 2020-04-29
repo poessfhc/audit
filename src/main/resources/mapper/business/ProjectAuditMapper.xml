@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.audit.business.dao.ProjectAuditMapper">
+  <resultMap id="BaseResultMap" type="com.edu.audit.business.domain.ProjectAudit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="audit_name" jdbcType="VARCHAR" property="auditName" />
+    <result column="audit_type" jdbcType="INTEGER" property="auditType" />
+    <result column="audit_result" jdbcType="TINYINT" property="auditResult" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, audit_name, audit_type, audit_result, audit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project_audit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from project_audit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectAudit">
+    insert into project_audit (id, audit_name, audit_type, 
+      audit_result, audit_time,project_id,audit_user)
+    values (#{id,jdbcType=VARCHAR}, #{auditName,jdbcType=VARCHAR}, #{auditType,jdbcType=INTEGER}, 
+      #{auditResult,jdbcType=TINYINT}, now(),#{projectId,jdbcType=VARCHAR},#{auditUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.audit.business.domain.ProjectAudit">
+    insert into project_audit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auditName != null">
+        audit_name,
+      </if>
+      <if test="auditType != null">
+        audit_type,
+      </if>
+      <if test="auditResult != null">
+        audit_result,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auditName != null">
+        #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditType != null">
+        #{auditType,jdbcType=INTEGER},
+      </if>
+      <if test="auditResult != null">
+        #{auditResult,jdbcType=TINYINT},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.audit.business.domain.ProjectAudit">
+    update project_audit
+    <set>
+      <if test="auditName != null">
+        audit_name = #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditType != null">
+        audit_type = #{auditType,jdbcType=INTEGER},
+      </if>
+      <if test="auditResult != null">
+        audit_result = #{auditResult,jdbcType=TINYINT},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.audit.business.domain.ProjectAudit">
+    update project_audit
+    set audit_name = #{auditName,jdbcType=VARCHAR},
+      audit_type = #{auditType,jdbcType=INTEGER},
+      audit_result = #{auditResult,jdbcType=TINYINT},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

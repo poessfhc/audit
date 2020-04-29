@@ -82,6 +82,19 @@ public class Identification {
          * 实施结束
          */
         public static final Integer SHISHIJIESHU = 10;
+        /**
+         * 工程结束
+         */
+        public static final Integer END = -1;
+
+    }
+
+    public static class AuditName {
+        public static final String LIXIANGSHENHE = "立项审核";
+        public static final String YUSUANSHENHE = "预算审核";
+        public static final String BOFUSHENHE = "拨付审核";
+        public static final String SHISHISHENHE = "实施审核";
+        public static final String JIESUANSHENHE = "结算审核";
 
     }
 }

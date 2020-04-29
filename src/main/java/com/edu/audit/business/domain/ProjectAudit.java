@@ -1,0 +1,35 @@
+package com.edu.audit.business.domain;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+@ApiModel("工程审核记录")
+public class ProjectAudit {
+    @ApiModelProperty("主键")
+    private String id;
+    @ApiModelProperty("主键")
+    private String auditName;
+    @ApiModelProperty("主键")
+    private Integer auditType;
+    @ApiModelProperty("主键")
+    private Byte auditResult;
+    @ApiModelProperty("主键")
+    private Date auditTime;
+    @ApiModelProperty("工程id")
+    private String projectId;
+    @ApiModelProperty("审核人员")
+    private String auditUser;
+
+    public ProjectAudit(String id, String auditName, Integer auditType, Byte auditResult, String projectId, String auditUser) {
+        this.id = id;
+        this.auditName = auditName;
+        this.auditType = auditType;
+        this.auditResult = auditResult;
+        this.projectId = projectId;
+        this.auditUser = auditUser;
+    }
+}

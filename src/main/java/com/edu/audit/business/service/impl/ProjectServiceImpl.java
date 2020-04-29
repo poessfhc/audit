@@ -1,8 +1,10 @@
 package com.edu.audit.business.service.impl;
 
+import com.edu.audit.business.dao.ProjectAuditMapper;
 import com.edu.audit.business.dao.ProjectCapitalMapper;
 import com.edu.audit.business.dao.ProjectMapper;
 import com.edu.audit.business.domain.Project;
+import com.edu.audit.business.domain.ProjectAudit;
 import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.business.dto.ProjectDto;
 import com.edu.audit.business.service.ProjectService;
@@ -11,6 +13,7 @@ import com.edu.audit.utils.PageResult;
 import com.edu.audit.utils.PageUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectMapper projectMapper;
     @Autowired
     ProjectCapitalMapper projectCapitalMapper;
+    @Autowired
+    ProjectAuditMapper projectAuditMapper;
 
     @Override
     public PageResult findPage(Integer pageNum, Integer pageSize, Integer stage) {
@@ -70,37 +75,48 @@ public class ProjectServiceImpl implements ProjectService {
         }
         Integer afterStage = -1;
         //TODO 大概改成switch比较好吧
+        String auditName = null;
         if (stage.equals(Identification.Project.LIXIANG)) {
             afterStage = Identification.Project.LIXIANGZHONG;
         }
         if (stage.equals(Identification.Project.LIXIANGZHONG)) {
             afterStage = Identification.Project.YUSUAN;
+            auditName = Identification.AuditName.LIXIANGSHENHE;
         }
         if (stage.equals(Identification.Project.YUSUAN)) {
             afterStage = Identification.Project.YUSUANZHONG;
         }
         if (stage.equals(Identification.Project.YUSUANZHONG)) {
             afterStage = Identification.Project.BOFU;
+            auditName = Identification.AuditName.YUSUANSHENHE;
         }
         if (stage.equals(Identification.Project.BOFU)) {
             afterStage = Identification.Project.BOFUZHONG;
         }
         if (stage.equals(Identification.Project.BOFUZHONG)) {
             afterStage = Identification.Project.SHISHI;
+            auditName = Identification.AuditName.BOFUSHENHE;
         }
         if (stage.equals(Identification.Project.SHISHI)) {
             afterStage = Identification.Project.SHISHIJIESHU;
         }
         if (stage.equals(Identification.Project.SHISHIJIESHU)) {
             afterStage = Identification.Project.JIESUAN;
+            auditName = Identification.AuditName.SHISHISHENHE;
         }
         if (stage.equals(Identification.Project.JIESUAN)) {
             afterStage = Identification.Project.JIESUANZHONG;
         }
+        if (stage.equals(Identification.Project.JIESUANZHONG)){
+            afterStage = Identification.Project.END;
+            auditName = Identification.AuditName.JIESUANSHENHE;
+        }
         if (afterStage.equals(-1)) {
             return 0;
         }
-        int flag = projectMapper.changeStage(id, afterStage);
+        Integer flag = projectMapper.changeStage(id, afterStage);
+        ProjectAudit projectAudit = new ProjectAudit(UUID.randomUUID().toString(),auditName,stage,flag.byteValue(),id, SecurityUtils.getSubject().getPrincipal().toString());
+        projectAuditMapper.insert(projectAudit);
         return flag;
     }
 
