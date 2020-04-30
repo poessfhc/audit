@@ -1,5 +1,6 @@
 package com.edu.audit.business.service;
 
+import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.dto.InstallationDto;
 import com.edu.audit.utils.PageResult;
 
@@ -31,4 +32,9 @@ public interface InstallationService {
      * @return 1-成功 0-失败
      */
     int updatePriceById(BigDecimal price, Integer id);
+
+    /**
+     * 查询预算列表
+     */
+    InstallationCountDto queryInstallationCountById(String id);
 }

@@ -2,6 +2,7 @@ package com.edu.audit.business.dao;
 
 import com.edu.audit.business.domain.Installation;
 import com.edu.audit.business.dto.InstallationDto;
+import com.edu.audit.business.dto.SingleInstallation;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +27,6 @@ public interface InstallationMapper {
     int updateByPrimaryKey(Installation record);
 
     int updatePriceById(BigDecimal price, Integer id);
+
+    List<SingleInstallation> queryInstallationCountById(String id);
 }

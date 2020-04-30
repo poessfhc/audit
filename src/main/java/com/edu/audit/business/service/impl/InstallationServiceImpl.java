@@ -1,7 +1,10 @@
 package com.edu.audit.business.service.impl;
 
 import com.edu.audit.business.dao.InstallationMapper;
+import com.edu.audit.business.dao.ProjectMapper;
+import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.dto.InstallationDto;
+import com.edu.audit.business.dto.SingleInstallation;
 import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.utils.PageResult;
 import com.edu.audit.utils.PageUtils;
@@ -24,6 +27,8 @@ import java.util.List;
 public class InstallationServiceImpl implements InstallationService {
     @Autowired
     InstallationMapper installationMapper;
+    @Autowired
+    ProjectMapper projectMapper;
 
     private PageInfo<InstallationDto> getPageInfo(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -39,5 +44,20 @@ public class InstallationServiceImpl implements InstallationService {
     @Override
     public int updatePriceById(BigDecimal price, Integer id) {
         return installationMapper.updatePriceById(price, id);
+    }
+
+    @Override
+    public InstallationCountDto queryInstallationCountById(String id) {
+        InstallationCountDto installationCountDto = new InstallationCountDto();
+        installationCountDto.setProjectName(projectMapper.selectByPrimaryKey(id).getProjectName());
+        List<SingleInstallation> singleInstallations = installationMapper.queryInstallationCountById(id);
+        installationCountDto.setInstallations(singleInstallations);
+        //todo
+        BigDecimal totalPrice = new BigDecimal("0");
+        singleInstallations.stream().forEach(singleInstallation -> {
+            totalPrice.add(singleInstallation.getTotal());
+        });
+        installationCountDto.setTotalPrice(totalPrice);
+        return installationCountDto;
     }
 }

@@ -7,10 +7,21 @@
         <result column="price" jdbcType="DECIMAL" property="price"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
+    <resultMap id="InstallationDtoResultMap" type="com.edu.audit.business.dto.InstallationDto">
+        <id column="id" jdbcType="INTEGER" property="installationId"/>
+        <result column="installation_name" jdbcType="VARCHAR" property="installationName"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <resultMap id="InstallationCount" type="com.edu.audit.business.dto.SingleInstallation">
+        <result column="installation_name" jdbcType="VARCHAR" property="installationName"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="installation_num" jdbcType="INTEGER" property="installationNum"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, installation_name, price, description
   </sql>
-    <select id="selectInstallationList" resultMap="BaseResultMap">
+    <select id="selectInstallationList" resultMap="InstallationDtoResultMap">
         select
         <include refid="Base_Column_List"/>
         from installation
@@ -89,4 +100,12 @@
     set price = #{price,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="queryInstallationCountById" resultMap="InstallationCount">
+    select i.installation_name,i.price,pi.installation_num,price*installation_num as total
+    from project p
+    inner join project_installation pi on p.id = pi.project_id
+    inner join installation i on pi.installation_id = i.id
+    where p.id = #{id,jdbcType=VARCHAR}
+    </select>
 </mapper>

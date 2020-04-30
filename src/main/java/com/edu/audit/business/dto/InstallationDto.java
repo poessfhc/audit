@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @ApiModel("工程设施返回类")
 public class InstallationDto {
     @ApiModelProperty("主键")
-    private Integer id;
+    private Integer installationId;
     @ApiModelProperty("设施名字")
     private String installationName;
     @ApiModelProperty("设施价格（元/平方米）")
