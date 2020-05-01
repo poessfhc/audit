@@ -1,13 +1,16 @@
 package com.edu.audit.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @ApiModel("工程审核记录")
+@NoArgsConstructor
 public class ProjectAudit {
     @ApiModelProperty("主键")
     private String id;
@@ -18,6 +21,7 @@ public class ProjectAudit {
     @ApiModelProperty("主键")
     private Byte auditResult;
     @ApiModelProperty("主键")
+    @JsonFormat(timezone = "GMT-5",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date auditTime;
     @ApiModelProperty("工程id")
     private String projectId;

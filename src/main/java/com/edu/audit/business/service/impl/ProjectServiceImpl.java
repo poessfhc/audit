@@ -1,5 +1,6 @@
 package com.edu.audit.business.service.impl;
 
+import com.edu.audit.authority.dao.SysUserMapper;
 import com.edu.audit.business.dao.ProjectAuditMapper;
 import com.edu.audit.business.dao.ProjectCapitalMapper;
 import com.edu.audit.business.dao.ProjectMapper;
@@ -35,6 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
     ProjectCapitalMapper projectCapitalMapper;
     @Autowired
     ProjectAuditMapper projectAuditMapper;
+    @Autowired
+    SysUserMapper sysUserMapper;
 
     @Override
     public PageResult findPage(Integer pageNum, Integer pageSize, Integer stage) {
@@ -48,6 +51,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public int insertProject(Project project) {
+        String userId = sysUserMapper.queryUserIdByUsername(project.getUserId());
+        project.setUserId(userId);
         project.setId(UUID.randomUUID().toString());
         project.setStage(Identification.Project.LIXIANGZHONG);
         return projectMapper.insert(project);
@@ -107,16 +112,20 @@ public class ProjectServiceImpl implements ProjectService {
         if (stage.equals(Identification.Project.JIESUAN)) {
             afterStage = Identification.Project.JIESUANZHONG;
         }
-        if (stage.equals(Identification.Project.JIESUANZHONG)){
+        if (stage.equals(Identification.Project.JIESUANZHONG)) {
             afterStage = Identification.Project.END;
             auditName = Identification.AuditName.JIESUANSHENHE;
         }
         if (afterStage.equals(-1)) {
             return 0;
         }
+        if (auditName != null) {
+            Integer flag = projectMapper.changeStage(id, afterStage);
+            ProjectAudit projectAudit = new ProjectAudit(UUID.randomUUID().toString(), auditName, stage, flag.byteValue(), id, SecurityUtils.getSubject().getPrincipal().toString());
+            projectAuditMapper.insert(projectAudit);
+            return flag;
+        }
         Integer flag = projectMapper.changeStage(id, afterStage);
-        ProjectAudit projectAudit = new ProjectAudit(UUID.randomUUID().toString(),auditName,stage,flag.byteValue(),id, SecurityUtils.getSubject().getPrincipal().toString());
-        projectAuditMapper.insert(projectAudit);
         return flag;
     }
 

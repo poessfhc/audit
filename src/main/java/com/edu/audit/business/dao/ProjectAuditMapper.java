@@ -3,6 +3,8 @@ package com.edu.audit.business.dao;
 import com.edu.audit.business.domain.ProjectAudit;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ProjectAuditMapper {
     int deleteByPrimaryKey(String id);
@@ -16,4 +18,6 @@ public interface ProjectAuditMapper {
     int updateByPrimaryKeySelective(ProjectAudit record);
 
     int updateByPrimaryKey(ProjectAudit record);
+
+    List<ProjectAudit> queryProjectAuditByProjectId(String projectId);
 }

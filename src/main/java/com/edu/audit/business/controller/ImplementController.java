@@ -22,7 +22,6 @@ public class ImplementController {
     @Autowired
     private ProjectService projectService;
 
-
     @PostMapping("/insertProject")
     @ApiOperation("发布工程")
     public Result insertProject(@RequestBody Project project) {

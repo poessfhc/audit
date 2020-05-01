@@ -30,4 +30,6 @@ public interface SysUserMapper {
     List<String> getRolesByName(String username);
 
     List<String> getPermissionsByRoleName(List<String> roleNames);
+
+    String queryUserIdByUsername(String username);
 }

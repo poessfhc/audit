@@ -3,6 +3,7 @@ package com.edu.audit.business.controller;
 import com.edu.audit.business.domain.ProjectInstallation;
 import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.service.InstallationService;
+import com.edu.audit.business.service.ProjectAuditService;
 import com.edu.audit.business.service.ProjectInstallationService;
 import com.edu.audit.business.service.ProjectService;
 import com.edu.audit.utils.Result;
@@ -15,7 +16,7 @@ import java.util.List;
 
 /**
  * @ClassName: ProjectController
- * @Description: TODO
+ * @Description: 总体工程模块
  * @Author: Vince
  * @Date: 2020/4/29 20:04
  * @Version: v1.0
@@ -30,6 +31,17 @@ public class ProjectController {
     InstallationService installationService;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    ProjectAuditService projectAuditService;
+
+    @GetMapping("queryProjectAuditByProjectId")
+    @ApiOperation("通过工程id查询审核记录")
+    public Result queryProjectAuditByProjectId(@RequestParam String projectId) {
+        Result result = new Result(200, "查询成功");
+        result.putData("auditInfo", projectAuditService.queryProjectAuditByProjectId(projectId));
+        return result;
+    }
+
 
     @PostMapping("/insertInstallation")
     @ApiOperation("增加设施以及对应数量")

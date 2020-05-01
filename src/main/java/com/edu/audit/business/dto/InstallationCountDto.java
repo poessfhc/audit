@@ -10,6 +10,8 @@ import java.util.List;
 @Data
 @ApiModel("统计预算数据的返回集")
 public class InstallationCountDto {
+    @ApiModelProperty("工程id")
+    private String id;
     @ApiModelProperty("工程名")
     private  String projectName;
     @ApiModelProperty("设施预算列表")

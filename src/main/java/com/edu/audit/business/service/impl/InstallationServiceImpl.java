@@ -49,14 +49,14 @@ public class InstallationServiceImpl implements InstallationService {
     @Override
     public InstallationCountDto queryInstallationCountById(String id) {
         InstallationCountDto installationCountDto = new InstallationCountDto();
+        installationCountDto.setId(id);
         installationCountDto.setProjectName(projectMapper.selectByPrimaryKey(id).getProjectName());
         List<SingleInstallation> singleInstallations = installationMapper.queryInstallationCountById(id);
         installationCountDto.setInstallations(singleInstallations);
-        //todo
         BigDecimal totalPrice = new BigDecimal("0");
-        singleInstallations.stream().forEach(singleInstallation -> {
-            totalPrice.add(singleInstallation.getTotal());
-        });
+        for (SingleInstallation singleInstallation : singleInstallations) {
+            totalPrice = totalPrice.add(singleInstallation.getTotal());
+        }
         installationCountDto.setTotalPrice(totalPrice);
         return installationCountDto;
     }

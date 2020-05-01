@@ -238,4 +238,7 @@
             #{roleName}
         </foreach>
     </select>
+    <select id="queryUserIdByUsername" resultType="string">
+        select user_id from sys_user where username = #{username}
+    </select>
 </mapper>
