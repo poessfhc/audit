@@ -1,11 +1,9 @@
 package com.edu.audit.business.controller;
 
+import com.edu.audit.business.domain.ProjectCapital;
 import com.edu.audit.business.domain.ProjectInstallation;
 import com.edu.audit.business.dto.InstallationCountDto;
-import com.edu.audit.business.service.InstallationService;
-import com.edu.audit.business.service.ProjectAuditService;
-import com.edu.audit.business.service.ProjectInstallationService;
-import com.edu.audit.business.service.ProjectService;
+import com.edu.audit.business.service.*;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +31,8 @@ public class ProjectController {
     ProjectService projectService;
     @Autowired
     ProjectAuditService projectAuditService;
+    @Autowired
+    ProjectCapitalService projectCapitalService;
 
     @GetMapping("queryProjectAuditByProjectId")
     @ApiOperation("通过工程id查询审核记录")
@@ -67,6 +67,14 @@ public class ProjectController {
         Result result = new Result(200, "查询成功");
         InstallationCountDto installationCountDto = installationService.queryInstallationCountById(id);
         result.putData("installationCountDto", installationCountDto);
+        return result;
+    }
+
+    @GetMapping("/insertProjectCapital")
+    @ApiOperation("插入工程预算金额")
+    public Result insertProjectCapital(@RequestBody ProjectCapital projectCapital) {
+        Result result = new Result(200, "插入成功");
+        result.putData("flag", projectCapitalService.insertProjectCapital(projectCapital));
         return result;
     }
 
