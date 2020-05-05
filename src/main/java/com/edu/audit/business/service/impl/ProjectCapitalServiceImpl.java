@@ -2,9 +2,12 @@ package com.edu.audit.business.service.impl;
 
 import com.edu.audit.business.dao.ProjectCapitalMapper;
 import com.edu.audit.business.domain.ProjectCapital;
+import com.edu.audit.business.dto.ProjectCapitalDto;
 import com.edu.audit.business.service.ProjectCapitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * @ClassName: ProjectCapitalServiceImpl
@@ -20,6 +23,12 @@ public class ProjectCapitalServiceImpl implements ProjectCapitalService {
 
     @Override
     public Integer insertProjectCapital(ProjectCapital projectCapital) {
+        projectCapital.setId(UUID.randomUUID().toString());
         return projectCapitalMapper.insert(projectCapital);
+    }
+
+    @Override
+    public ProjectCapitalDto queryProjectCapitalByProjectId(String id) {
+        return projectCapitalMapper.queryProjectCapital(id);
     }
 }

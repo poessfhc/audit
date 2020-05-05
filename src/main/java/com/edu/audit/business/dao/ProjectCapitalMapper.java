@@ -21,7 +21,7 @@ public interface ProjectCapitalMapper {
     int updateByPrimaryKey(ProjectCapital record);
 
     /**
-     * 通过主键查询查询工程信息和资金列表
+     * 通过工程id查询查询工程信息和资金列表
      *
      * @param id 主键
      */

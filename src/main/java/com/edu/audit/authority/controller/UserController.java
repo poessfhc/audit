@@ -39,7 +39,6 @@ public class UserController {
 
     @PostMapping("/register")
     @ApiOperation("用户注册")
-    @RequiresPermissions("user:create")
     public Result register(@RequestBody SysUser sysUser) {
         Integer isSuccess = userService.register(sysUser);
         Result result;
@@ -48,14 +47,13 @@ public class UserController {
             result.putData("flag", isSuccess);
             return result;
         }
-        result = new Result(0, "注册成功");
+        result = new Result(200, "注册成功");
         result.putData("flag", isSuccess);
         return result;
     }
 
     @GetMapping("/sendCodeEmail")
     @ApiOperation("发送邮箱验证码")
-    @RequiresPermissions("user:create")
     public Result sendCodeEmail(@RequestParam String emailAddress) {
         emailService.sendEmailCode(emailAddress);
         Result result = new Result(1, "发送成功");

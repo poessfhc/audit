@@ -70,11 +70,20 @@ public class ProjectController {
         return result;
     }
 
-    @GetMapping("/insertProjectCapital")
+    @PostMapping("/insertProjectCapital")
     @ApiOperation("插入工程预算金额")
     public Result insertProjectCapital(@RequestBody ProjectCapital projectCapital) {
         Result result = new Result(200, "插入成功");
         result.putData("flag", projectCapitalService.insertProjectCapital(projectCapital));
+        return result;
+    }
+
+    @GetMapping("/queryProjectCapitalByProjectId")
+    @ApiOperation("通过工程id查询查询工程信息和资金列表")
+    public Result queryProjectCapitalByProjectId(@RequestParam String id) {
+        Result result = new Result(200, "查询");
+        //todo
+        result.putData("projectCapitalDto", projectCapitalService.queryProjectCapitalByProjectId(id));
         return result;
     }
 
