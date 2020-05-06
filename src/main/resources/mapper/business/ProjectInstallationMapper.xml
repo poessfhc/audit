@@ -22,9 +22,9 @@
   </delete>
   <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectInstallation">
     insert into project_installation (project_id, installation_id,
-      installation_num)
+      installation_num,flag)
     values (#{projectId,jdbcType=VARCHAR}, #{installationId,jdbcType=VARCHAR},
-      #{installationNum,jdbcType=INTEGER})
+      #{installationNum,jdbcType=INTEGER},0)
   </insert>
   <insert id="insertSelective" parameterType="com.edu.audit.business.domain.ProjectInstallation">
     insert into project_installation

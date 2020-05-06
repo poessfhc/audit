@@ -18,6 +18,10 @@
         <result column="price" jdbcType="DECIMAL" property="price"/>
         <result column="installation_num" jdbcType="INTEGER" property="installationNum"/>
     </resultMap>
+    <resultMap id="installationStepMap" type="com.edu.audit.business.domain.InstallationStep">
+        <result column="installation_name" jdbcType="VARCHAR" property="title"/>
+        <result column="id" jdbcType="INTEGER" property="installationId"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, installation_name, price, description
   </sql>
@@ -107,5 +111,38 @@
     inner join project_installation pi on p.id = pi.project_id
     inner join installation i on pi.installation_id = i.id
     where p.id = #{id,jdbcType=VARCHAR}
+    order by i.order
     </select>
+
+    <select id="queryInstallationByProjectId" resultMap="installationStepMap">
+    select i.id,i.installation_name
+    from project p
+    inner join project_installation pi on p.id = pi.project_id
+    inner join installation i on pi.installation_id = i.id
+    where p.id = #{projectId,jdbcType=VARCHAR}
+    order by i.order
+    </select>
+
+    <select id="queryNewStep" resultType="integer">
+    select count(1)
+    from project p
+    inner join project_installation pi on p.id = pi.project_id
+    inner join installation i on pi.installation_id = i.id
+    where p.id = #{projectId,jdbcType=VARCHAR} and pi.flag = 1
+    order by i.order
+    </select>
+    <update id="updateInstallationFlagByProjectId">
+        update project_installation
+        <set>
+            <if test="param3 == 'next'">
+                flag = 1
+            </if>
+            <if test="param3 == 'previous'">
+                flag = 0
+            </if>
+        </set>
+        <where>
+            project_id = #{projectId} and installation_id = #{installationId}
+        </where>
+    </update>
 </mapper>

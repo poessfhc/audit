@@ -1,6 +1,7 @@
 package com.edu.audit.business.controller;
 
 import com.edu.audit.business.domain.Project;
+import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.business.service.ProjectService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 public class ImplementController {
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private InstallationService installationService;
 
     @PostMapping("/insertProject")
     @ApiOperation("发布工程")
@@ -64,6 +67,23 @@ public class ImplementController {
     public Result changeProjectStageById(@RequestParam String id) {
         Result result = new Result(200, "变更成功");
         result.putData("flag", projectService.changeStage(id));
+        return result;
+    }
+
+    @GetMapping("/queryInstallationByProjectId")
+    @ApiOperation("通过工程id查询施工列表")
+    public Result queryInstallationByProjectId(@RequestParam String projectId) {
+        Result result = new Result(200, "查询成功");
+        result.putData("items", installationService.queryInstallationByProjectId(projectId));
+        result.putData("max", installationService.queryNewStep(projectId));
+        return result;
+    }
+
+    @GetMapping("/updateInstallationFlagByProjectId")
+    @ApiOperation("通过工程id更新设施完成进度")
+    public Result updateInstallationFlagByProjectId(@RequestParam String projectId, @RequestParam Integer installationId, @RequestParam String stepFlag) {
+        Result result = new Result(200, "更新成功");
+        result.putData("flag", installationService.updateInstallationFlagByProjectId(projectId, installationId, stepFlag));
         return result;
     }
 

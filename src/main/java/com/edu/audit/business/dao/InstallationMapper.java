@@ -1,6 +1,7 @@
 package com.edu.audit.business.dao;
 
 import com.edu.audit.business.domain.Installation;
+import com.edu.audit.business.domain.InstallationStep;
 import com.edu.audit.business.dto.InstallationDto;
 import com.edu.audit.business.dto.SingleInstallation;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,10 @@ public interface InstallationMapper {
     int updatePriceById(BigDecimal price, Integer id);
 
     List<SingleInstallation> queryInstallationCountById(String id);
+
+    List<InstallationStep> queryInstallationByProjectId(String projectId);
+
+    Integer queryNewStep(String projectId);
+
+    int updateInstallationFlagByProjectId(String projectId, Integer installationId, String stepFlag);
 }

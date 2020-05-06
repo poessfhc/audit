@@ -82,7 +82,6 @@ public class ProjectController {
     @ApiOperation("通过工程id查询查询工程信息和资金列表")
     public Result queryProjectCapitalByProjectId(@RequestParam String id) {
         Result result = new Result(200, "查询");
-        //todo
         result.putData("projectCapitalDto", projectCapitalService.queryProjectCapitalByProjectId(id));
         return result;
     }

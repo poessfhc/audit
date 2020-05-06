@@ -76,7 +76,7 @@ public class ShiroConfig {
 
 
         filterMap.put("/test/**","anon");
-
+        filterMap.put("/api/**","anon");
 
         //剩余的请求shiro都拦截
         filterMap.put("/**/*", "corsAuthenticationFilter");

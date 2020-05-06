@@ -1,5 +1,6 @@
 package com.edu.audit.business.service;
 
+import com.edu.audit.business.domain.InstallationStep;
 import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.dto.InstallationDto;
 import com.edu.audit.utils.PageResult;
@@ -37,4 +38,19 @@ public interface InstallationService {
      * 查询预算列表
      */
     InstallationCountDto queryInstallationCountById(String id);
+
+    /**
+     * 通过工程id查询施工列表
+     */
+    List<InstallationStep> queryInstallationByProjectId(String projectId);
+
+    /**
+     * 通过工程id查询最新进度
+     */
+    Integer queryNewStep(String projectId);
+
+    /**
+     * 通过工程id更新设施完成进度
+     */
+    Integer updateInstallationFlagByProjectId(String projectId, Integer installationId, String stepFlag);
 }
