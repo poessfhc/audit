@@ -20,6 +20,10 @@
     delete from project_installation
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByProjectId" parameterType="string">
+    delete from project_installation
+    where project_id = #{projectId}
+  </delete>
   <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectInstallation">
     insert into project_installation (project_id, installation_id,
       installation_num,flag)

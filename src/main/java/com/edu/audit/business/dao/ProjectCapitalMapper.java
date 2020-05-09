@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface ProjectCapitalMapper {
     int deleteByPrimaryKey(String id);
 
+    int deleteByProjectId(String projectId);
+
     int insert(ProjectCapital record);
 
     int insertSelective(ProjectCapital record);
@@ -26,4 +28,11 @@ public interface ProjectCapitalMapper {
      * @param id 主键
      */
     ProjectCapitalDto queryProjectCapital(String id);
+
+    /**
+     * 通过工程id更新金额
+     *
+     * @param projectId 工程id
+     */
+    int settlementByprojectId(String projectId, Integer finalAmount);
 }

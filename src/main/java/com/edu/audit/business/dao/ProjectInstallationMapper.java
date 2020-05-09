@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ProjectInstallationMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByProjectId(String projectId);
+
     int insert(ProjectInstallation record);
 
     int insertSelective(ProjectInstallation record);

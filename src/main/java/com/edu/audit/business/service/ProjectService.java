@@ -59,6 +59,11 @@ public interface ProjectService {
     int changeStage(String id);
 
     /**
+     * 拒绝操作
+     * */
+    int downStage(String id);
+
+    /**
      * 立项
      *
      * @param project 申请工程详细信息

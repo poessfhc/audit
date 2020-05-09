@@ -191,10 +191,11 @@
                 stage = #{stage,jdbcType=INTEGER}
             </when>
             <otherwise>
-                stage in ("2","4","6","8")
+                stage in ("2","4","6","8","10")
             </otherwise>
         </choose>
         </where>
+        order by p.update_time desc
     </select>
 
     <update id="changeStage">

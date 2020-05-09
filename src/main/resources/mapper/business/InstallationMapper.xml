@@ -22,6 +22,11 @@
         <result column="installation_name" jdbcType="VARCHAR" property="title"/>
         <result column="id" jdbcType="INTEGER" property="installationId"/>
     </resultMap>
+    <resultMap id="InstallationInfoMap" type="com.edu.audit.business.dto.InstallationInfoDto">
+        <result column="installation_name" jdbcType="VARCHAR" property="installationName"/>
+        <result column="installation_num" jdbcType="INTEGER" property="installationNum"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+    </resultMap>
     <sql id="Base_Column_List">
     id, installation_name, price, description
   </sql>
@@ -145,4 +150,12 @@
             project_id = #{projectId} and installation_id = #{installationId}
         </where>
     </update>
+    <select id="queryInstallationInfoByProjectId" resultMap="InstallationInfoMap">
+    select i.installation_name,pi.installation_num,pi.flag
+    from project p
+    inner join project_installation pi on p.id = pi.project_id
+    inner join installation i on pi.installation_id = i.id
+    where p.id = #{projectId,jdbcType=VARCHAR}
+    order by i.order
+    </select>
 </mapper>

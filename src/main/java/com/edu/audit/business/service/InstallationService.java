@@ -3,6 +3,7 @@ package com.edu.audit.business.service;
 import com.edu.audit.business.domain.InstallationStep;
 import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.dto.InstallationDto;
+import com.edu.audit.business.dto.InstallationInfoDto;
 import com.edu.audit.utils.PageResult;
 
 import java.math.BigDecimal;
@@ -53,4 +54,9 @@ public interface InstallationService {
      * 通过工程id更新设施完成进度
      */
     Integer updateInstallationFlagByProjectId(String projectId, Integer installationId, String stepFlag);
+
+    /**
+     * 通过工程id查询设施完成情况
+     */
+    List<InstallationInfoDto> queryInstallationInfoByProjectId(String projectId);
 }

@@ -5,6 +5,7 @@ import com.edu.audit.business.dao.ProjectMapper;
 import com.edu.audit.business.domain.InstallationStep;
 import com.edu.audit.business.dto.InstallationCountDto;
 import com.edu.audit.business.dto.InstallationDto;
+import com.edu.audit.business.dto.InstallationInfoDto;
 import com.edu.audit.business.dto.SingleInstallation;
 import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.utils.PageResult;
@@ -77,6 +78,11 @@ public class InstallationServiceImpl implements InstallationService {
     @Override
     public Integer updateInstallationFlagByProjectId(String projectId, Integer installationId, String stepFlag) {
         return installationMapper.updateInstallationFlagByProjectId(projectId, installationId, stepFlag);
+    }
+
+    @Override
+    public List<InstallationInfoDto> queryInstallationInfoByProjectId(String projectId) {
+        return installationMapper.queryInstallationInfoByProjectId(projectId);
     }
 
 

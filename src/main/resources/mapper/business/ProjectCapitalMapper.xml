@@ -27,6 +27,11 @@
     delete from project_capital
     where id = #{id,jdbcType=VARCHAR}
   </delete>
+
+    <delete id="deleteByProjectId" parameterType="java.lang.String">
+    delete from project_capital
+    where project_id = #{projectId,jdbcType=VARCHAR}
+  </delete>
     <insert id="insert" parameterType="com.edu.audit.business.domain.ProjectCapital">
     insert into project_capital (id, budget, Actual, project_id
       )
@@ -88,4 +93,9 @@
     left join project p on c.project_id = p.id
     where p.id = #{id,jdbcType=VARCHAR}
     </select>
+    <update id="settlementByprojectId">
+    update project_capital
+    set finalAmount = #{finalAmount,jdbcType=INTEGER}
+    where projectId = #{projectId,jdbcType=VARCHAR}
+    </update>
 </mapper>

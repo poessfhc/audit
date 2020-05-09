@@ -79,11 +79,25 @@ public class ProjectController {
     }
 
     @GetMapping("/queryProjectCapitalByProjectId")
-    @ApiOperation("通过工程id查询查询工程信息和资金列表")
+    @ApiOperation("通过工程id查询工程信息和资金列表")
     public Result queryProjectCapitalByProjectId(@RequestParam String id) {
         Result result = new Result(200, "查询");
         result.putData("projectCapitalDto", projectCapitalService.queryProjectCapitalByProjectId(id));
         return result;
+    }
+
+    @GetMapping("/settlementByprojectId")
+    @ApiOperation("通过工程id更新金额")
+    public Result settlementByprojectId(@RequestParam String projectId, @RequestParam Integer finalAmount) {
+        int flag = projectCapitalService.settlementByprojectId(projectId, finalAmount);
+        Result result = null;
+        if (flag == 1) {
+            result = new Result(200, "更新成功");
+        } else {
+            result = new Result(0, "更新失败");
+        }
+        return result;
+
     }
 
 }

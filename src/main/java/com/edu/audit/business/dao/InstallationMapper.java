@@ -3,6 +3,7 @@ package com.edu.audit.business.dao;
 import com.edu.audit.business.domain.Installation;
 import com.edu.audit.business.domain.InstallationStep;
 import com.edu.audit.business.dto.InstallationDto;
+import com.edu.audit.business.dto.InstallationInfoDto;
 import com.edu.audit.business.dto.SingleInstallation;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,6 @@ public interface InstallationMapper {
     Integer queryNewStep(String projectId);
 
     int updateInstallationFlagByProjectId(String projectId, Integer installationId, String stepFlag);
+
+    List<InstallationInfoDto> queryInstallationInfoByProjectId(String projectId);
 }

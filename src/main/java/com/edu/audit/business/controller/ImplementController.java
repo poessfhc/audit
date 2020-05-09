@@ -70,6 +70,13 @@ public class ImplementController {
         return result;
     }
 
+    @GetMapping("/downStage")
+    public Result downStage(@RequestParam String id) {
+        Result result = new Result(200, "变更成功");
+        result.putData("flag", projectService.downStage(id));
+        return result;
+    }
+
     @GetMapping("/queryInstallationByProjectId")
     @ApiOperation("通过工程id查询施工列表")
     public Result queryInstallationByProjectId(@RequestParam String projectId) {
@@ -87,4 +94,12 @@ public class ImplementController {
         return result;
     }
 
+    @GetMapping("/queryInstallationInfoByProjectId")
+    @ApiOperation("通过工程id查询设施完成情况")
+    public Result queryInstallationInfoByProjectId(@RequestParam String projectId) {
+        Result result = new Result(200, "查询成功");
+        result.putData("installationInfo", installationService.queryInstallationInfoByProjectId(projectId));
+        return result;
+
+    }
 }

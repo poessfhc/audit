@@ -35,4 +35,9 @@ public class ProjectCapitalServiceImpl implements ProjectCapitalService {
     public ProjectCapitalDto queryProjectCapitalByProjectId(String id) {
         return projectCapitalMapper.queryProjectCapital(id);
     }
+
+    @Override
+    public Integer settlementByprojectId(String projectId, Integer finalAmount) {
+        return projectCapitalMapper.settlementByprojectId(projectId,finalAmount);
+    }
 }
