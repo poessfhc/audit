@@ -38,6 +38,11 @@ public class ProjectCapitalServiceImpl implements ProjectCapitalService {
 
     @Override
     public Integer settlementByprojectId(String projectId, Integer finalAmount) {
-        return projectCapitalMapper.settlementByprojectId(projectId,finalAmount);
+        return projectCapitalMapper.settlementByprojectId(projectId, finalAmount);
+    }
+
+    @Override
+    public Integer updateProjectCapitalByPrimaryKey(String projectId, Integer finalAmount) {
+        return projectCapitalMapper.updateByProjectId(projectId, finalAmount);
     }
 }

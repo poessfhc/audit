@@ -22,6 +22,8 @@ public interface ProjectCapitalMapper {
 
     int updateByPrimaryKey(ProjectCapital record);
 
+    int updateByProjectId(String projectId,Integer finalAmount);
+
     /**
      * 通过工程id查询查询工程信息和资金列表
      *

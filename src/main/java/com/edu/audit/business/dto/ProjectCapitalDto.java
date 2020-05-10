@@ -18,8 +18,10 @@ public class ProjectCapitalDto {
     private String id;
     @ApiModelProperty("预算资金（元）")
     private Integer budget;
-    @ApiModelProperty("实际资金（元）")
+    @ApiModelProperty("拨付资金（元）")
     private Integer actual;
+    @ApiModelProperty("最终资金（元）")
+    private Integer finalAmount;
     @ApiModelProperty("工程id")
     private String projectId;
     @ApiModelProperty("工程描述")

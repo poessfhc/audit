@@ -11,6 +11,7 @@
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="budget" jdbcType="INTEGER" property="budget"/>
         <result column="Actual" jdbcType="INTEGER" property="actual"/>
+        <result column="finalAmount" jdbcType="INTEGER" property="finalAmount"/>
         <result column="project_id" jdbcType="VARCHAR" property="projectId"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
@@ -87,8 +88,13 @@
       Actual = #{actual,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+    <update id="updateByProjectId">
+    update project_capital
+    set finalAmount = #{finalAmount,jdbcType=INTEGER}
+    where project_id = #{id,jdbcType=VARCHAR}
+  </update>
     <select id="queryProjectCapital" resultMap="ProjectCapitalDtoMap">
-    select c.id, c.budget, c.Actual, c.project_id,p.description
+    select c.id, c.budget, c.Actual,c.finalAmount,c.project_id,p.description
     from project_capital c
     left join project p on c.project_id = p.id
     where p.id = #{id,jdbcType=VARCHAR}
@@ -96,6 +102,7 @@
     <update id="settlementByprojectId">
     update project_capital
     set finalAmount = #{finalAmount,jdbcType=INTEGER}
-    where projectId = #{projectId,jdbcType=VARCHAR}
+    where project_id = #{projectId,jdbcType=VARCHAR}
     </update>
+
 </mapper>

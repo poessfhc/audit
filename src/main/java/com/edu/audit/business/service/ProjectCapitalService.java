@@ -29,8 +29,14 @@ public interface ProjectCapitalService {
 
     /**
      * 通过工程id更新金额
+     *
      * @param projectId 工程id
      * @return 1-成功 0-失败
      */
-    Integer settlementByprojectId(String projectId,Integer finalAmount);
+    Integer settlementByprojectId(String projectId, Integer finalAmount);
+
+    /**
+     * 通过工程id更新金额数据
+     */
+    Integer updateProjectCapitalByPrimaryKey(String projectId, Integer finalAmount);
 }
