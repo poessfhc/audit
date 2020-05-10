@@ -11,6 +11,14 @@
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+    <resultMap id="MenuTreeMap" type="com.edu.audit.authority.dto.MenuTree">
+        <id column="menu_id" jdbcType="VARCHAR" property="id"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="label"/>
+    </resultMap>
+    <resultMap id="MenuNodeMap" type="com.edu.audit.authority.dto.MenuNode">
+        <id column="menu_id" jdbcType="VARCHAR" property="id"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="label"/>
+    </resultMap>
     <sql id="Base_Column_List">
     role_id, role_name, remark, delete_flag, create_by, create_time, update_by, update_time
     </sql>
@@ -143,4 +151,44 @@
             </if>
         </where>
     </delete>
+    <select id="selectAllRole" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+    </select>
+    <select id="queryMenuTree" resultMap="MenuTreeMap">
+    select menu_id,menu_name
+    from sys_menu
+    where menu_type = "M"
+    </select>
+    <select id="queryMenuNode" resultMap="MenuNodeMap">
+    select menu_id,menu_name
+    from sys_menu
+    where parent_id = #{menuId}
+    </select>
+    <select id="queryMenuTreeByRoleId" resultMap="MenuTreeMap">
+    select m.menu_id,m.menu_name
+    from sys_menu m
+    inner join sys_role_menu rm on m.menu_id = rm.menu_id
+    inner join sys_role r on rm.role_id = r.role_id
+    where m.menu_type = "M" and r.role_id = #{roleId}
+    </select>
+    <select id="queryMenuNodeByRoleId" resultMap="MenuNodeMap">
+    select m.menu_id,m.menu_name
+    from sys_menu m
+    inner join sys_role_menu rm on m.menu_id = rm.menu_id
+    inner join sys_role r on rm.role_id = r.role_id
+    where m.menu_type = "C" and r.role_id = #{roleId}
+    </select>
+    <delete id="deleteRoleTreeByRoleId">
+        delete from sys_role_menu
+        where role_id = #{roleId}
+    </delete>
+    <insert id="addRoleTree" parameterType="java.util.List">
+        insert into sys_role_menu(role_id, menu_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.roleId},#{item.menuId})
+        </foreach>
+    </insert>
 </mapper>
