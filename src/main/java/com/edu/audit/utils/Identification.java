@@ -85,7 +85,7 @@ public class Identification {
         /**
          * 工程结束
          */
-        public static final Integer END = -1;
+        public static final Integer END = 11;
 
     }
 
