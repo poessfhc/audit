@@ -31,6 +31,10 @@ public interface SysRoleMapper {
 
     List<SysRole> selectAllRole();
 
+    List<String> selectRole();
+
+    List<String> queryRoleByUserId(String userId);
+
     List<MenuTree> queryMenuTree();
 
     List<MenuNode> queryMenuNode(String menuId);
@@ -41,5 +45,11 @@ public interface SysRoleMapper {
 
     int deleteRoleTreeByRoleId(String roleId);
 
+    int deleteUserRoleByUserId(String userId);
+
+    String queryRoleIdByRemark(String remark);
+
     int addRoleTree(List<RoleMenuDto> roleMenuDtos);
+
+    int addUserRole(String userId,String roleId);
 }

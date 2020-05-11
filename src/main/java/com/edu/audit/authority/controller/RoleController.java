@@ -4,6 +4,7 @@ import com.edu.audit.authority.dao.SysRoleMapper;
 import com.edu.audit.authority.dto.RoleMenuDto;
 import com.edu.audit.authority.dto.RoleMenuDtos;
 import com.edu.audit.authority.service.TreeService;
+import com.edu.audit.authority.service.UserService;
 import com.edu.audit.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,8 @@ public class RoleController {
     TreeService treeService;
     @Autowired
     SysRoleMapper sysRoleMapper;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/queryTree")
     @ApiOperation("查询菜单")
@@ -41,6 +44,30 @@ public class RoleController {
     public Result queryRoleList() {
         Result result = new Result(200, "查询成功");
         result.putData("roleList", sysRoleMapper.selectAllRole());
+        return result;
+    }
+
+    @GetMapping("/queryRole")
+    @ApiOperation("查询角色列表")
+    public Result queryRole() {
+        Result result = new Result(200, "查询成功");
+        result.putData("roleList", sysRoleMapper.selectRole());
+        return result;
+    }
+
+    @GetMapping("/queryRoleByUserId")
+    @ApiOperation("通过用户id查角色id")
+    public Result queryRoleByUserId(@RequestParam String userId) {
+        Result result = new Result(200, "查询成功");
+        result.putData("roleList", sysRoleMapper.queryRoleByUserId(userId));
+        return result;
+    }
+
+    @GetMapping("/updateUserRoleByUserId")
+    @ApiOperation("通过用户id更新用户角色")
+    public Result updateUserRoleByUserId(@RequestParam String remark, @RequestParam String userId) {
+        Result result = new Result(200, "更新成功");
+        userService.updateUserRoleByUserId(remark,userId);
         return result;
     }
 

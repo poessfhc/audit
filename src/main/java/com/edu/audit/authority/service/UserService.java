@@ -3,6 +3,7 @@ package com.edu.audit.authority.service;
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.utils.PageResult;
 import com.edu.audit.utils.PageUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
 public interface UserService {
     /**
      * 查询用户列表
-     * @param pageNum 当前页
+     *
+     * @param pageNum  当前页
      * @param pageSize 页面大小
      */
     PageResult queryUser(Integer pageNum, Integer pageSize);
@@ -45,4 +47,11 @@ public interface UserService {
      * @return 返回注册是否成功
      */
     Integer register(SysUser sysUser);
+
+    /**
+     * 通过用户id更新用户角色
+     * @param remark 角色名
+     * @param userId 用户id
+     */
+    Integer updateUserRoleByUserId(String remark,String userId);
 }

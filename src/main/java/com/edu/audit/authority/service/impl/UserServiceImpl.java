@@ -1,5 +1,6 @@
 package com.edu.audit.authority.service.impl;
 
+import com.edu.audit.authority.dao.SysRoleMapper;
 import com.edu.audit.authority.dao.SysUserMapper;
 import com.edu.audit.authority.domain.SysUser;
 import com.edu.audit.authority.service.UserService;
@@ -30,6 +31,8 @@ public class UserServiceImpl implements UserService {
     SysUserMapper sysUserMapper;
     @Autowired
     RedisService redisService;
+    @Autowired
+    SysRoleMapper sysRoleMapper;
 
     @Override
     public PageResult queryUser(Integer pageNum, Integer pageSize) {
@@ -61,6 +64,16 @@ public class UserServiceImpl implements UserService {
         sysUser.setSalt(salt);
         sysUser.setPassword(md5Password.toString());
         return sysUserMapper.insert(sysUser);
+    }
+
+    @Override
+    public Integer updateUserRoleByUserId(String remark, String userId) {
+        if (!remark.equals("")) {
+            sysRoleMapper.deleteUserRoleByUserId(userId);
+            String roleId = sysRoleMapper.queryRoleIdByRemark(remark);
+            return sysRoleMapper.addUserRole(userId, roleId);
+        }
+        return sysRoleMapper.deleteUserRoleByUserId(userId);
     }
 
     private PageInfo<SysUser> getPageInfo(Integer pageNum, Integer pageSize) {

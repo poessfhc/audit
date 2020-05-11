@@ -156,6 +156,14 @@
         <include refid="Base_Column_List"/>
         from sys_role
     </select>
+    <select id="selectRole" resultType="string">
+        select remark from sys_role
+    </select>
+    <select id="queryRoleByUserId" resultType="string">
+        select r.remark from sys_role r
+        inner join sys_user_role sur on r.role_id = sur.role_id
+        where sur.user_id = #{userId}
+    </select>
     <select id="queryMenuTree" resultMap="MenuTreeMap">
     select menu_id,menu_name
     from sys_menu
@@ -184,11 +192,24 @@
         delete from sys_role_menu
         where role_id = #{roleId}
     </delete>
+    <delete id="deleteUserRoleByUserId">
+        delete from sys_user_role
+        where user_id = #{userId}
+    </delete>
+    <select id="queryRoleIdByRemark" parameterType="string" resultType="string">
+        select role_id
+        from sys_role
+        where remark = #{remark}
+    </select>
     <insert id="addRoleTree" parameterType="java.util.List">
         insert into sys_role_menu(role_id, menu_id)
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.roleId},#{item.menuId})
         </foreach>
+    </insert>
+    <insert id="addUserRole">
+        insert into sys_user_role(user_id, role_id)
+        values (#{userId},#{roleId})
     </insert>
 </mapper>
