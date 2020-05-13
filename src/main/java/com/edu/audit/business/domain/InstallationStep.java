@@ -1,7 +1,10 @@
 package com.edu.audit.business.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * @ClassName: InstallationStep
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InstallationStep {
     private String title;
-    private String description;
+    @JsonFormat(timezone = "GMT-5",pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date description;
     private Integer installationId;
 }

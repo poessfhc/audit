@@ -21,6 +21,7 @@
     <resultMap id="installationStepMap" type="com.edu.audit.business.domain.InstallationStep">
         <result column="installation_name" jdbcType="VARCHAR" property="title"/>
         <result column="id" jdbcType="INTEGER" property="installationId"/>
+        <result column="complete_time" jdbcType="TIMESTAMP" property="description"/>
     </resultMap>
     <resultMap id="InstallationInfoMap" type="com.edu.audit.business.dto.InstallationInfoDto">
         <result column="installation_name" jdbcType="VARCHAR" property="installationName"/>
@@ -120,7 +121,7 @@
     </select>
 
     <select id="queryInstallationByProjectId" resultMap="installationStepMap">
-    select i.id,i.installation_name
+    select i.id,i.installation_name,pi.complete_time
     from project p
     inner join project_installation pi on p.id = pi.project_id
     inner join installation i on pi.installation_id = i.id
@@ -140,10 +141,12 @@
         update project_installation
         <set>
             <if test="param3 == 'next'">
-                flag = 1
+                flag = 1,
+                complete_time = now()
             </if>
             <if test="param3 == 'previous'">
-                flag = 0
+                flag = 0,
+                complete_time = null
             </if>
         </set>
         <where>
