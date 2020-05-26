@@ -173,34 +173,51 @@
         </where>
     </select>
     <select id="queryProjectDtoListByStagePage" resultMap="ProjectDtoMap" parameterType="integer">
-        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by, p.description,u.username
+        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by,
+        p.description,u.username
         from project p left join sys_user u on p.user_id = u.user_id
         <where>
             <if test="_parameter != null">
                 stage = #{stage,jdbcType=INTEGER}
             </if>
         </where>
+        order by update_time desc
     </select>
 
     <select id="queryAuditProjectDtoListByStagePage" resultMap="ProjectDtoMap" parameterType="integer">
-        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by, p.description,u.username
+        select p.id, p.project_name, p.user_id, p.stage, p.create_time, p.create_by, p.update_time, p.update_by,
+        p.description,u.username
         from project p left join sys_user u on p.user_id = u.user_id
         <where>
-        <choose>
-            <when test="_parameter != null">
-                stage = #{stage,jdbcType=INTEGER}
-            </when>
-            <otherwise>
-                stage in ("2","4","6","8","10")
-            </otherwise>
-        </choose>
+            <choose>
+                <when test="_parameter != null">
+                    stage = #{stage,jdbcType=INTEGER}
+                </when>
+                <otherwise>
+                    stage in ("2","4","6","8","10")
+                </otherwise>
+            </choose>
         </where>
         order by p.update_time desc
     </select>
 
     <update id="changeStage">
         update project
-        set stage = #{stage,jdbcType=INTEGER}
+        set stage = #{stage,jdbcType=INTEGER},update_time = now()
         where id = #{id,jdbcType=VARCHAR}
     </update>
+
+    <update id="warning">
+        update project
+        <if test='param2 == "1"'>
+            set warning = "true"
+        </if>
+        <if test='param2 == "2"'>
+            set warning = "false"
+        </if>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="queryflag" resultType="string">
+        select warning from project where id = #{id}
+    </select>
 </mapper>

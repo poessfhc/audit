@@ -1,5 +1,6 @@
 package com.edu.audit.business.controller;
 
+import com.edu.audit.business.dao.ProjectMapper;
 import com.edu.audit.business.domain.Project;
 import com.edu.audit.business.service.InstallationService;
 import com.edu.audit.business.service.ProjectService;
@@ -24,6 +25,8 @@ public class ImplementController {
     private ProjectService projectService;
     @Autowired
     private InstallationService installationService;
+    @Autowired
+    private ProjectMapper projectMapper;
 
     @PostMapping("/insertProject")
     @ApiOperation("发布工程")
@@ -83,6 +86,14 @@ public class ImplementController {
         Result result = new Result(200, "查询成功");
         result.putData("items", installationService.queryInstallationByProjectId(projectId));
         result.putData("max", installationService.queryNewStep(projectId));
+        result.putData("flag",projectMapper.queryflag(projectId));
+        return result;
+    }
+
+    @GetMapping("/warning")
+    public Result warning(@RequestParam String id,@RequestParam String flag) {
+        projectMapper.warning(id,flag);
+        Result result = new Result(200, "警告成功");
         return result;
     }
 

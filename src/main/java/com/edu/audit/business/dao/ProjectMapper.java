@@ -45,4 +45,14 @@ public interface ProjectMapper {
      * 通过id变更阶段
      */
     int changeStage(String id, Integer stage);
+
+    /**
+     * 警告
+     * */
+    int warning(String id,String flag);
+
+    /**
+     * 查询警告
+     * */
+    String queryflag(String id);
 }

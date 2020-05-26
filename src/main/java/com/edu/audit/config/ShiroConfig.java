@@ -75,7 +75,7 @@ public class ShiroConfig {
 
 
 
-        filterMap.put("/test/**","anon");
+//        filterMap.put("/test/**","anon");
         filterMap.put("/api/**","anon");
 
         //剩余的请求shiro都拦截
@@ -121,9 +121,9 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(org.apache.shiro.mgt.SecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;
     }
 

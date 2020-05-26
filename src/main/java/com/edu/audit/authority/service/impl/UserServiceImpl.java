@@ -51,10 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer register(SysUser sysUser) {
+        //redis中通过邮箱获取到验证码进行校验
         String code = redisService.get(sysUser.getEmail());
         if (!sysUser.getCode().equals(code)) {
             return null;
         }
+        //密码加盐二次加密
         String salt = UUID.randomUUID().toString();
         Object md5Password = new SimpleHash("MD5", sysUser.getPassword(), ByteSource.Util.bytes(salt), 1024);
         String name = SecurityUtils.getSubject().getPrincipal().toString();
